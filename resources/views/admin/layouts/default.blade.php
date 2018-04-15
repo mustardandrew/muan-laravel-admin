@@ -6,6 +6,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="robots" content="noindex, nofollow"
 
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin-favicon/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('admin-favicon/favicon-32x32.png') }}">
