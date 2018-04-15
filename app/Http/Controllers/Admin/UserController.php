@@ -233,7 +233,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->resolveEntity()->whereId($id)->firstOrFail();
+        $user = $this->resolveEntity()->firstOrFail();
         $roles = Role::all();
 
         return view('admin::admin.pages.users.edit', compact('user', 'roles'));
@@ -249,7 +249,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, UploadService $uploadService, $id)
     {
-        $user = $this->resolveEntity()->whereId($id)->findOrFail($id);
+        $user = $this->resolveEntity()->findOrFail($id);
 
         $data = $request->all();
         if (! empty($data['password'])) {
@@ -293,7 +293,7 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        $user = $this->resolveEntity()->whereId($id)->findOrFail($id);
+        $user = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.users.delete', compact('user'));
     }
 
@@ -306,7 +306,7 @@ class UserController extends Controller
      */
     public function destroy(UploadService $uploadService, $id)
     {
-        $user = $this->resolveEntity()->whereId($id)->findOrFail($id);
+        $user = $this->resolveEntity()->findOrFail($id);
         $fileName = $user->avatar;
         $user->delete();
 
@@ -327,7 +327,7 @@ class UserController extends Controller
     public function profile($id = null)
     {
         $user = $id
-            ? $this->resolveEntity()->whereId($id)->findOrFail($id)
+            ? $this->resolveEntity()->findOrFail($id)
             : auth()->user();
         return view('admin::admin.pages.users.profile', compact('user'));
     }
@@ -340,7 +340,7 @@ class UserController extends Controller
      */
     public function permissions($id)
     {
-        $user = $this->resolveEntity()->whereId($id)->findOrFail($id);
+        $user = $this->resolveEntity()->findOrFail($id);
         $permissions = Permission::all();
         return view('admin::admin.pages.users.permissions', compact('user', 'permissions'));
     }
@@ -353,7 +353,7 @@ class UserController extends Controller
      */
     public function attach($id)
     {
-        $user = $this->resolveEntity()->whereId($id)->findOrFail($id);
+        $user = $this->resolveEntity()->findOrFail($id);
         $user->permissions()->sync(request()->permissions);
         FlashMessage::notice("User with name '{$user->name}' attached permissions!");
         return redirect()->route('admin.users.permissions', ['id' => $id]);
