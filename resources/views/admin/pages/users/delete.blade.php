@@ -16,7 +16,7 @@
     <h1>Delete User</h1>
 
     <form class="form" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy user?</p>
 

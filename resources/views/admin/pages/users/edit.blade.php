@@ -19,7 +19,8 @@
         action="{{ route('admin.users.update', ['id' => $user->id]) }}"
         method="POST"
         enctype="multipart/form-data">
-        @csrf
+
+        {{ csrf_field() }}
 
         <div class=form__group>
 

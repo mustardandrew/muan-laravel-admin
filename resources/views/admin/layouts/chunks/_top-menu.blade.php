@@ -137,7 +137,7 @@
                       action="{{ route('admin.logout') }}"
                       method="POST"
                       style="display: none;">
-                    @csrf
+                    {{ csrf_field() }}
                 </form>
             </div>
             {{-- // Logout --}}

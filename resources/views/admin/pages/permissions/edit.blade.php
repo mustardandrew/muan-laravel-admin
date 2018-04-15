@@ -16,7 +16,7 @@
     <h1>Edit Permission</h1>
 
     <form class="form" action="{{ route('admin.permissions.update', ['id' => $permission->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class=form__group>
             <div class="control">

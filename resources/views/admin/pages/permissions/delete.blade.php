@@ -16,7 +16,7 @@
     <h1>Delete Permission</h1>
 
     <form class="form" action="{{ route('admin.permissions.destroy', ['id' => $permission->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy permission?</p>
 

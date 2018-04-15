@@ -16,7 +16,7 @@
     <h1>Edit Block</h1>
 
     <form class="form" action="{{ route('admin.blocks.update', ['id' => $block->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class="row">
             <div class="column two mr-20 mb-20">

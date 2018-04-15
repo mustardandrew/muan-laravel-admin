@@ -16,7 +16,7 @@
     <h1>Delete Block</h1>
 
     <form class="form" action="{{ route('admin.blocks.destroy', ['id' => $block->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy block?</p>
 

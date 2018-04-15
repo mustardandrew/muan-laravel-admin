@@ -16,7 +16,7 @@
     <h1>Delete Property</h1>
 
     <form class="form" action="{{ route('admin.properties.destroy', ['id' => $property->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy property?</p>
 

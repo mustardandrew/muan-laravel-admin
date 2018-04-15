@@ -7,7 +7,8 @@
     <div class="login-form-wrapper">
 
         <form class="form" action="{{ route('admin.login') }}" method="POST">
-            @csrf
+
+            {{ csrf_field() }}
 
             <div class="form__group login-form-header">
                 <h1>Login</h1>

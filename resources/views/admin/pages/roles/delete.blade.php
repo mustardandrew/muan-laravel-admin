@@ -16,7 +16,7 @@
     <h1>Delete Role</h1>
 
     <form class="form" action="{{ route('admin.roles.destroy', ['id' => $role->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy role?</p>
 

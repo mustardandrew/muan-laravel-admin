@@ -16,7 +16,7 @@
     <h1>Edit Role</h1>
 
     <form class="form" action="{{ route('admin.roles.update', ['id' => $role->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class=form__group>
             <div class="control">

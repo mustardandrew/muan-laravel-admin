@@ -16,7 +16,7 @@
     <h1>Delete Page</h1>
 
     <form class="form" action="{{ route('admin.pages.destroy', ['id' => $page->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy page?</p>
 

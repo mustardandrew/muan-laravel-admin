@@ -16,7 +16,7 @@
     <h1>Edit group</h1>
 
     <form class="form" action="{{ route('admin.groups.update', ['id' => $group->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class="row">
             <div class="column two mr-20 mb-20">

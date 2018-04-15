@@ -16,7 +16,7 @@
     <h1>Create Role</h1>
 
     <form class="form" action="{{ route('admin.roles.store') }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class=form__group>
             <div class="control">

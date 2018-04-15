@@ -16,7 +16,7 @@
     <h1>Create Block</h1>
 
     <form class="form" action="{{ route('admin.blocks.store') }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class="row">
             <div class="column two mr-20 mb-20">

@@ -20,7 +20,7 @@
           method="POST"
           enctype="multipart/form-data">
 
-        @csrf
+    {{ csrf_field() }}
 
         <div class="row">
             <div class="column two mr-20 mb-20">

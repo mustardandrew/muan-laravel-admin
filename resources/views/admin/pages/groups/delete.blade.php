@@ -16,7 +16,7 @@
     <h1>Delete Group</h1>
 
     <form class="form" action="{{ route('admin.groups.destroy', ['id' => $group->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy group?</p>
 

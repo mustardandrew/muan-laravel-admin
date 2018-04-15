@@ -16,7 +16,7 @@
     <h1>Delete Category</h1>
 
     <form class="form" action="{{ route('admin.categories.destroy', ['id' => $category->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy category?</p>
 

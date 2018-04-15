@@ -16,7 +16,7 @@
     <h1>Edit Property</h1>
 
     <form class="form" action="{{ route('admin.properties.update', ['id' => $property->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <div class="row">
             <div class="column mr-20 mb-20">

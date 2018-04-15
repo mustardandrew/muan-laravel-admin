@@ -16,7 +16,7 @@
     <h1>Delete Post</h1>
 
     <form class="form" action="{{ route('admin.posts.destroy', ['id' => $post->id]) }}" method="POST">
-        @csrf
+        {{ csrf_field() }}
 
         <p>Are you sure want to destroy post?</p>
 

@@ -16,7 +16,8 @@
     <h1>Attach Permissions To <strong>{{ ucfirst($user->name) }}</strong> User</h1>
 
     <form class="form" action="{{ route('admin.users.attach', ['id' => $user->id]) }}" method="POST">
-        @csrf
+
+        {{ csrf_field() }}
 
         @php
             $groups = $permissions->map(function ($permission) {
