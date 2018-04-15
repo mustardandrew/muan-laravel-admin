@@ -32,13 +32,7 @@ composer require muan/laravel-acl
 ],
 ```
 
-3) Start command for installation:
-
-```bash
-php artisan admin:install
-```
-
-4) Use the following trait on your User model
+3) Use the following trait on your User model
 
 ```php
 // Use traits
@@ -52,6 +46,14 @@ class User extends Authenticatable
     // ...
 }
 ```
+
+4) Start command for installation:
+
+```bash
+php artisan admin:install
+```
+
+
 
 ## Commands
 
