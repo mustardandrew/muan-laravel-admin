@@ -27,6 +27,15 @@ class UserAddCommand extends Command
      */
     protected $description = 'Add new user';
 
+    /**
+     * Get model
+     *
+     * @return mixed
+     */
+    protected function getModel()
+    {
+        return app()->make(config('auth.providers.users.model'));
+    }
 
     /**
      * Execute the console command.
@@ -43,7 +52,16 @@ class UserAddCommand extends Command
         $data['email'] = $this->ask('User email:');
         $data['password'] = bcrypt($this->secret('User password:'));
 
-        $user = app()->make(config('auth.providers.users.model'))->create($data);
+        $user = $this->getModel()->create($data);
+
+        if ($this->getModel()->count() == 1) {
+            $roles = Role::all();
+            $user->load('roles');
+            $user->attachRole($roles);
+            $this->call('user:view', ['id' => $user->id]);
+
+            return 0;
+        }
 
         $this->call('user:view', ['id' => $user->id]);
 
