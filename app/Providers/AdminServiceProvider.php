@@ -156,6 +156,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../public/css/admin.css' => public_path('/css/admin.css')], 'apublic');
         $this->publishes([__DIR__ . '/../../public/js/admin.js' => public_path('/js/admin.js')], 'apublic');
         $this->publishes([__DIR__ . '/../../public/fonts' => public_path('/fonts')], 'apublic');
+        $this->publishes([__DIR__ . '/../../public/admin-favicon' => public_path('/admin-favicon')], 'apublic');
     }
 
 }
