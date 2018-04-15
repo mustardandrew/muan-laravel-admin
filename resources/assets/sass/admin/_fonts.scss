@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext,latin-ext');
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-weigh($weight, $italic : false) {
+  font-weight: $weight;
+  @if ($italic) {
+    font-style: italic;
+  }
+}
+
+.font-weight-light   { @include  font-weigh(300); }
+.font-weight-regular { @include  font-weigh(400); }
+.font-weight-medium  { @include  font-weigh(500); }
+.font-weight-bold    { @include  font-weigh(700); }
+.font-weight-black   { @include  font-weigh(900); }
+
+.font-weight-light-italic   { @include  font-weigh(300, true); }
+.font-weight-regular-italic { @include  font-weigh(400, true); }
+.font-weight-medium-italic  { @include  font-weigh(500, true); }
+.font-weight-bold-italic    { @include  font-weigh(700, true); }
+.font-weight-black-italic   { @include  font-weigh(900, true); }

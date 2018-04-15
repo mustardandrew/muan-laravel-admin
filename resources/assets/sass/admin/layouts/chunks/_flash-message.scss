@@ -1,0 +1,19 @@
+.message {
+  padding: 10px 20px;
+  background-color: $color-grey-mint;
+  color: $color-white;
+
+  strong {
+    text-transform: uppercase;
+  }
+
+  &--error {
+    background-color: $color-red;
+  }
+  &--warning {
+    background-color: $color-yellow-casablanca;
+  }
+  &--notice {
+    background-color: $color-blue-sharp;
+  }
+}

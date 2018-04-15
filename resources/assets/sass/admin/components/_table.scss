@@ -1,0 +1,66 @@
+// Reset
+table.table  {
+    &, thead, tbody, tfoot, tr, th, td {
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-collapse: inherit;
+        border-spacing: 0;
+        border-color: inherit;
+        vertical-align: inherit;
+        text-align: left;
+        font-weight: inherit;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+    }
+}
+
+table.table {
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+
+  .filters {
+    td:first-child {
+      border-left: 1px solid #b1b1b1;
+    }
+    td:last-child {
+      border-right: 1px solid #b1b1b1;
+    }
+  }
+
+  tr {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+
+  th, td {
+      padding: 10px;
+      font-size: 0.9rem;
+  }
+
+  th {
+    background-color: #3d4957;
+    color: $color-white;
+    border-right: 1px solid $color-grey-mint;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  td {
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+
+      &:first-child {
+        border-left: 1px solid #ddd;
+      }
+  }
+
+  tr:first-child td {
+    border-top: 1px solid #ddd;
+  }
+}

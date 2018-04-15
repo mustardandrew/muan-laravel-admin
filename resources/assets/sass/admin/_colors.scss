@@ -1,0 +1,144 @@
+// Base colors
+$color-white:   #ffffff;
+$color-default: #e1e5ec;
+$color-dark:    #2f353b;
+
+// Blue colors
+$color-blue:           #3598dc;
+$color-blue-madison:   #578ebe;
+$color-blue-chambray:  #2c3e50;
+$color-blue-ebonyclay: #22313f;
+$color-blue-hoki:      #67809f;
+$color-blue-steel:     #4B77be;
+$color-blue-soft:      #4c87b9;
+$color-blue-dark:      #5e738b;
+$color-blue-sharp:     #5c9bd1;
+$color-blue-oleo:      #94a0b2;
+
+// Green colors
+$color-green:           #32c5d2;
+$color-green-meadow:    #1BBC9B;
+$color-green-seagreen:  #1BA39C;
+$color-green-turquoise: #36D7B7;
+$color-green-haze:      #44b6ae;
+$color-green-jungle:    #26C281;
+$color-green-soft:      #3faba4;
+$color-green-dark:      #4DB3A2;
+$color-green-sharp:     #2ab4c0;
+$color-green-steel:     #29b4b6;
+
+// Red colors
+$color-red:             #e7505a;
+$color-red-pink:        #E08283;
+$color-red-sunglo:      #E26A6A;
+$color-red-intense:     #e35b5a;
+$color-red-thunderbird: #D91E18;
+$color-red-flamingo:    #EF4836;
+$color-red-soft:        #d05454;
+$color-red-haze:        #f36a5a;
+$color-red-mint:        #e43a45;
+
+// Yellow colors
+$color-yellow:            #c49f47;
+$color-yellow-gold:       #E87E04;
+$color-yellow-casablanca: #f2784b;
+$color-yellow-crusta:     #f3c200;
+$color-yellow-lemon:      #F7CA18;
+$color-yellow-saffron:    #F4D03F;
+$color-yellow-soft:       #c8d046;
+$color-yellow-haze:       #c5bf66;
+$color-yellow-mint:       #c5b96b;
+
+// Grey colors
+$color-grey:         #E5E5E5;
+$color-grey-steel:   #e9edef;
+$color-grey-cararra: #fafafa;
+$color-grey-gallery: #555555;
+$color-grey-cascade: #95A5A6;
+$color-grey-silver:  #BFBFBF;
+$color-grey-salsa:   #ACB5C3;
+$color-grey-salt:    #bfcad1;
+$color-grey-mint:    #525e64;
+
+// Color purple
+$color-purple:          #8E44AD;
+$color-purple-plum:     #8775a7;
+$color-purple-medium:   #BF55EC;
+$color-purple-studio:   #8E44AD;
+$color-purple-wisteria: #9B59B6;
+$color-purple-seance:   #9A12B3;
+$color-purple-intense:  #8775a7;
+$color-purple-sharp:    #796799;
+$color-purple-soft:     #8877a9;
+
+// Generate classes
+$colors: (
+    ('white', $color-white),
+    ('default', $color-default),
+    ('dark', $color-dark),
+    ('blue', $color-blue),
+    ('blue-madison', $color-blue-madison),
+    ('blue-chambray', $color-blue-chambray),
+    ('blue-ebonyclay', $color-blue-ebonyclay),
+    ('blue-hoki', $color-blue-hoki),
+    ('blue-steel', $color-blue-steel),
+    ('blue-soft', $color-blue-soft),
+    ('blue-dark', $color-blue-dark),
+    ('blue-sharp', $color-blue-sharp),
+    ('blue-oleo', $color-blue-oleo),
+    ('green', $color-green),
+    ('green-meadow', $color-green-meadow),
+    ('green-seagreen', $color-green-seagreen),
+    ('green-turquoise', $color-green-turquoise),
+    ('green-haze', $color-green-haze),
+    ('green-jungle', $color-green-jungle),
+    ('green-soft', $color-green-soft),
+    ('green-dark', $color-green-dark),
+    ('green-sharp', $color-green-sharp),
+    ('green-steel', $color-green-steel),
+    ('red', $color-red),
+    ('red-pink', $color-red-pink),
+    ('red-sunglo', $color-red-sunglo),
+    ('red-intense', $color-red-intense),
+    ('red-thunderbird', $color-red-thunderbird),
+    ('red-flamingo', $color-red-flamingo),
+    ('red-soft', $color-red-soft),
+    ('red-haze', $color-red-haze),
+    ('red-mint', $color-red-mint),
+    ('yellow', $color-yellow),
+    ('yellow-gold', $color-yellow-gold),
+    ('yellow-casablanca', $color-yellow-casablanca),
+    ('yellow-crusta', $color-yellow-crusta),
+    ('yellow-lemon', $color-yellow-lemon),
+    ('yellow-saffron', $color-yellow-saffron),
+    ('yellow-soft', $color-yellow-soft),
+    ('yellow-haze', $color-yellow-haze),
+    ('yellow-mint', $color-yellow-mint),
+    ('grey', $color-grey),
+    ('grey-steel', $color-grey-steel),
+    ('grey-cararra', $color-grey-cararra),
+    ('grey-gallery', $color-grey-gallery),
+    ('grey-cascade', $color-grey-cascade),
+    ('grey-silver', $color-grey-silver),
+    ('grey-salsa', $color-grey-salsa),
+    ('grey-salt', $color-grey-salt),
+    ('grey-mint', $color-grey-mint),
+    ('purple', $color-purple),
+    ('purple-plum', $color-purple-plum),
+    ('purple-medium', $color-purple-medium),
+    ('purple-studio', $color-purple-studio),
+    ('purple-wisteria', $color-purple-wisteria),
+    ('purple-seance', $color-purple-seance),
+    ('purple-intense', $color-purple-intense),
+    ('purple-sharp', $color-purple-sharp),
+    ('purple-soft', $color-purple-soft),
+);
+
+@each $color in $colors {
+  .text-#{nth($color, 1)} {
+    color: nth($color, 2) !important;
+  }
+  .bg-#{nth($color, 1)} {
+    background-color: nth($color, 2) !important;
+  }
+};

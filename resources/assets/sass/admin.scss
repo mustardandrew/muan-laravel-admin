@@ -1,0 +1,39 @@
+// Normalize
+@import "~normalize-scss/sass/normalize";
+@include normalize();
+
+// Fonts
+@import "admin/fonts";
+
+// Font awesome
+@import "admin/font-awesome/fa-solid";
+@import "admin/font-awesome/fa-regular";
+@import "admin/font-awesome/fa-brands";
+@import "admin/font-awesome/fontawesome";
+
+// Variables
+@import "admin/variables";
+
+// Layouts
+@import "admin/layouts/default";
+@import "admin/layouts/chunks/nav-bar";
+@import "admin/layouts/chunks/top-menu";
+@import "admin/layouts/chunks/breadcrumbs";
+@import "admin/layouts/chunks/flash-message";
+
+// Main part
+@import "admin/typography";
+
+// Components
+@import "admin/components/grids";
+@import "admin/components/forms";
+@import "admin/components/table";
+@import "admin/components/data-table";
+@import "admin/components/block-info";
+@import "admin/components/tabs";
+
+// Pages
+@import "admin/pages/profile";
+
+
+

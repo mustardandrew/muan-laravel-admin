@@ -1,0 +1,28 @@
+.breadcrumbs {
+  display: flex;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+
+  &__item {
+    color: #888;
+    font-size: 0.8rem;
+
+    &:after {
+      content: '\203A';
+      padding: 0 5px;
+    }
+    &:last-child:after {
+      content: none;
+    }
+  }
+
+  &__link {
+    color: #888;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}

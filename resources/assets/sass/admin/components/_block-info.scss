@@ -1,0 +1,27 @@
+.block-info {
+  background-color: #303a47;
+  padding: 15px;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  height: 100%;
+  text-decoration: none;
+
+  &__title {
+    font-size: 0.9rem;
+  }
+
+  &__description {
+    font-size: 2rem;
+  }
+
+  hr {
+    width: 100%;
+    border-bottom: 1px solid $color-white;
+    border-top: none;
+    opacity: 0.3;
+  }
+}

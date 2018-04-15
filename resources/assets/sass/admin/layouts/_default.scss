@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: $bg-dark-color;
+  min-height: 100%;
+  height: 100%;
+  font-family: 'Raleway';
+  font-weight: 600;
+}
+
+body > div, .container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  background-color: $bg-light-color;
+
+  border-left: 1px solid #3d4957;
+  border-right: 1px solid #3d4957;
+}
+
+.left-bar {
+  width: 50px;
+  background-color: #364150;
+  overflow: hidden;
+
+  transition: 0.3s;
+
+  &--open {
+    width: 200px;
+  }
+}
+
+.right-bar {
+  flex: 1;
+}
+
+.content {
+  padding: 20px;
+}
+
