@@ -276,16 +276,13 @@ class CategoryController extends Controller
     public function destroy(UploadService $uploadService, Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        $fileName = $category->image;
         Post::where('category_id', $id)->update(['category_id' => $request->category_id]);
         Category::where('parent_category_id', $id)
             ->where('id', '!=', $request->category_id)
             ->update(['parent_category_id' => $request->category_id]);
         $category->delete();
 
-        if ($fileName) {
-            $uploadService->remove($fileName);
-        }
+        $category->image && $uploadService->remove($category->image);
 
         FlashMessage::notice("Category with name '{$category->title}' deleted successfully!");
         return redirect()->route('admin.categories');

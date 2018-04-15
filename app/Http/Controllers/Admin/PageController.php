@@ -181,9 +181,7 @@ class PageController extends Controller
             $page->image = $uploadService->upload($request->file('image'), 'pages', config('admin.resize.page'));
             $page->save();
 
-            if ($oldFileName) {
-                $uploadService->remove($oldFileName);
-            }
+            $oldFileName && $uploadService->remove($oldFileName);
         }
 
         FlashMessage::notice("Page with name '{$page->title}' updated successfully!");
@@ -212,12 +210,9 @@ class PageController extends Controller
     public function destroy(UploadService $uploadService, $id)
     {
         $page = Page::findOrFail($id);
-        $fileName = $page->image;
         $page->delete();
 
-        if ($fileName) {
-            $uploadService->remove($fileName);
-        }
+        $page->image && $uploadService->remove($page->image);
 
         FlashMessage::notice("Page with name '{$page->title}' deleted successfully!");
         return redirect()->route('admin.pages');

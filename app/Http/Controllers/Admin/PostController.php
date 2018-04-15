@@ -249,9 +249,7 @@ class PostController extends Controller
             $post->image = $uploadService->upload($request->file('image'), 'posts', config('admin.resize.post'));
             $post->save();
 
-            if ($oldFileName) {
-                $uploadService->remove($oldFileName);
-            }
+            $oldFileName && $uploadService->remove($oldFileName);
         }
 
         FlashMessage::notice("Post with name '{$post->title}' updated successfully!");
@@ -280,12 +278,9 @@ class PostController extends Controller
     public function destroy(UploadService $uploadService, $id)
     {
         $post = Post::findOrFail($id);
-        $fileName = $post->image;
         $post->delete();
 
-        if ($fileName) {
-            $uploadService->remove($fileName);
-        }
+        $post->image && $uploadService->remove($post->image);
 
         FlashMessage::notice("Post with name '{$post->title}' deleted successfully!");
         return redirect()->route('admin.posts');

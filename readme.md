@@ -1,6 +1,10 @@
 # Maun Laravel Admin package
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/ea0fac8bdf9dd8fb53a6/maintainability)](https://codeclimate.com/github/mustardandrew/muan-laravel-admin/maintainability)
+
 Maun Laravel Admin package is a PHP package for Laravel Framework. Used for manipulation data and models.
+
+![Screenshot](docs/screenshot.png "Admin Panel")
 
 ## Requirements
 
