@@ -19,6 +19,7 @@
         <title>@yield('title') - Admin Panel</title>
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="slug" content="{{ config('admin.slug') }}">
 
         <!-- Styles -->
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet">

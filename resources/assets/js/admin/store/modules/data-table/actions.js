@@ -6,7 +6,7 @@ const actions = {
         try {
             commit(header.DATA_TABE_START_LOADING_MUTATION);
 
-            let url = `/admin/api/${modelName}`
+            let url = `/${window.adminSlug}/api/${modelName}`
                 + `?column=${state.query.column}`
                 + `&direction=${state.query.direction}`
                 + `&page=${state.query.page}`

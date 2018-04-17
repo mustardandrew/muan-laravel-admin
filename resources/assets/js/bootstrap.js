@@ -11,3 +11,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 window.axios = axios;
+
+let adminSlug = document.head.querySelector('meta[name="slug"]');
+if (adminSlug) {
+    window.adminSlug = adminSlug.content;
+} else {
+    window.adminSlug = 'admin';
+}
