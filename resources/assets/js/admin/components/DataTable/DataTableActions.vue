@@ -4,7 +4,8 @@
            class="button"
            :style="action.style"
            :href="createRoute(action.route)"
-           :title="action.title">
+           :title="action.title"
+           :target="action.target">
             <i v-if="action.icon" :class="action.icon"></i>
             <span v-else>{{ action.title }}</span>
         </a>

@@ -3,28 +3,28 @@
   // Fix for first column with checkbox
   table.table {
 
-      td:first-child, th:first-child {
-          text-align: center;
-      }
+    td {
+      vertical-align: middle;
+    }
 
-      th input[type=checkbox] + label:before {
-          color: $color-white;
-      }
+    th input[type=checkbox] + label:before {
+        color: $color-white;
+    }
 
-      td input[type=text], td select {
-        width: 100%;
-        font-size: 0.9rem;
-        padding: 5px;
-        background-color: $color-white;
-      }
+    td input[type=text], td select {
+      width: 100%;
+      font-size: 0.9rem;
+      padding: 5px;
+      background-color: $color-white;
+    }
 
-      .filters {
-          background-color: #b4bcc8;
+    .filters {
+        background-color: #b4bcc8;
 
-          td {
-              padding: 2px;
-          }
-      }
+        td {
+            padding: 2px;
+        }
+    }
   }
 
   &__title {

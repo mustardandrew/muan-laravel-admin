@@ -11,7 +11,7 @@
 
 <template>
     <div class="image-wrapper">
-        <img :src="value" alt="" />
+        <img :src="value.src" alt="" :style="value.style" :class="value.class" />
     </div>
 </template>
 

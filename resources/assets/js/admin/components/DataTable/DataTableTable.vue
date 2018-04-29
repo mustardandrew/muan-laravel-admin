@@ -122,6 +122,7 @@
     import LinkField from './Fields/LinkField.vue';
     import StringField from './Fields/StringField.vue';
     import ActiveField from './Fields/ActiveField.vue';
+    import HtmlField from './Fields/HtmlField.vue';
 
     // Filters
     import StringFilter from './Filters/StringFilter.vue';
@@ -196,6 +197,7 @@
             LinkField,
             StringField,
             ActiveField,
+            HtmlField,
             // Filters
             StringFilter,
             SelectFilter,
