@@ -118,19 +118,10 @@
             <div class="form__item">
 
                 <div class=form__group>
-                    <div class="control">
-                        <label class="control__label" for="image">Choose Avatar</label>
-                        <input type="file"
-                               class="control__field"
-                               name="image"
-                               id="image"
-                               placeholder="Choose Avatar" />
-                        @if ($errors->has('image'))
-                            <span class="control__help control__help--error">
-                            {{ $errors->first('image') }}
-                        </span>
-                        @endif
-                    </div>
+                    <upload-image title="Choose Avatar"
+                                  name="image"
+                                  error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
+                    </upload-image>
                 </div>
 
                 <div class=form__group>

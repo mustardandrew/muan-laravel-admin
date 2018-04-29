@@ -34,7 +34,7 @@ class UpdateCategoryRequest extends CreateCategoryRequest
     public function rules()
     {
         return [
-            'slug' => 'required|min:3|max:255|unique:categories,'  . $this->id,
+            'slug' => 'required|min:3|max:255|unique:categories,slug,'  . $this->id,
             'parent_category_id' => 'required|not_in:' . $this->id,
             'title' => 'required|min:3|max:255',
             'meta_title' => 'max:255',

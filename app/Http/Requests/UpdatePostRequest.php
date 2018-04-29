@@ -37,7 +37,7 @@ class UpdatePostRequest extends CreatePostRequest
     public function rules()
     {
         return [
-            'slug' => 'required|min:3|max:255|unique:posts,' . $this->id,
+            'slug' => 'required|min:3|max:255|unique:posts,slug,' . $this->id,
             'category_id' => 'required|integer',
             'title' => 'required|min:3|max:255',
             'meta_title' => 'max:255',

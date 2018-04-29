@@ -233,7 +233,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->resolveEntity()->firstOrFail();
+        $user = $this->resolveEntity()->findOrFail($id);
         $roles = Role::all();
 
         return view('admin::admin.pages.users.edit', compact('user', 'roles'));
@@ -359,4 +359,23 @@ class UserController extends Controller
         return redirect()->route('admin.users.permissions', ['id' => $id]);
     }
 
+    /**
+     * Remove image
+     *
+     * @param UploadService $uploadService
+     * @param int $id
+     * @return mixed
+     */
+    public function removeImage(UploadService $uploadService, $id)
+    {
+        $user = $this->resolveEntity()->findOrFail($id);
+
+        if ($user->avatar) {
+            $uploadService->remove($user->avatar);
+            $user->avatar = "";
+            $user->save();
+        }
+
+        return response()->json(['message' => 'Image removed successfully!']);
+    }
 }

@@ -288,4 +288,23 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories');
     }
 
+    /**
+     * Remove image
+     *
+     * @param UploadService $uploadService
+     * @param int $id
+     * @return mixed
+     */
+    public function removeImage(UploadService $uploadService, $id)
+    {
+        $category = Category::findOrFail($id);;
+
+        if ($category->image) {
+            $uploadService->remove($category->image);
+            $category->image = "";
+            $category->save();
+        }
+
+        return response()->json(['message' => 'Image removed successfully!']);
+    }
 }

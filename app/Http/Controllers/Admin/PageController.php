@@ -218,4 +218,24 @@ class PageController extends Controller
         return redirect()->route('admin.pages');
     }
 
+    /**
+     * Remove image
+     *
+     * @param UploadService $uploadService
+     * @param int $id
+     * @return mixed
+     */
+    public function removeImage(UploadService $uploadService, $id)
+    {
+        $page = Page::findOrFail($id);;
+
+        if ($page->image) {
+            $uploadService->remove($page->image);
+            $page->image = "";
+            $page->save();
+        }
+
+        return response()->json(['message' => 'Image removed successfully!']);
+    }
+
 }

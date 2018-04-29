@@ -33,6 +33,8 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
             Route::post('/edit/{id}', 'PageController@update')->name('admin.pages.update');
             Route::get('/delete/{id}', 'PageController@delete')->name('admin.pages.delete');
             Route::post('/delete/{id}', 'PageController@destroy')->name('admin.pages.destroy');
+
+            Route::post('/remove-image/{id}', 'PageController@removeImage')->name('admin.pages.remove-image');
         });
 
         // Properties
@@ -86,6 +88,8 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
 
             Route::get('/permissions/{id}', 'UserController@permissions')->name('admin.users.permissions');
             Route::post('/attach/{id}', 'UserController@attach')->name('admin.users.attach');
+
+            Route::post('/remove-image/{id}', 'UserController@removeImage')->name('admin.users.remove-image');
         });
 
         // Roles
@@ -127,6 +131,8 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
             Route::post('/edit/{id}', 'CategoryController@update')->name('admin.categories.update');
             Route::get('/delete/{id}', 'CategoryController@delete')->name('admin.categories.delete');
             Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.categories.destroy');
+
+            Route::post('/remove-image/{id}', 'CategoryController@removeImage')->name('admin.categories.remove-image');
         });
 
         // Posts
@@ -139,6 +145,8 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
             Route::post('/edit/{id}', 'PostController@update')->name('admin.posts.update');
             Route::get('/delete/{id}', 'PostController@delete')->name('admin.posts.delete');
             Route::post('/delete/{id}', 'PostController@destroy')->name('admin.posts.destroy');
+
+            Route::post('/remove-image/{id}', 'PostController@removeImage')->name('admin.posts.remove-image');
         });
 
         // Settings

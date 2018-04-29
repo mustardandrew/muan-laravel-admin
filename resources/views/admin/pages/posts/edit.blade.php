@@ -60,26 +60,12 @@
                 </div>
 
                 <div class=form__group>
-                    <div class="control">
-                        @if ($post->image)
-                            <div>
-                                <div>(Now)</div>
-                                <img class="thumbnail" src="{{ Storage::disk(config('admin.diskname', 'public'))->url($post->image) }}" alt="" height="100">
-                            </div>
-                        @endif
-
-                        <label class="control__label" for="image">Choose Poster</label>
-                        <input type="file"
-                               class="control__field"
-                               name="image"
-                               id="image"
-                               placeholder="Choose Poster" />
-                        @if ($errors->has('image'))
-                            <span class="control__help control__help--error">
-                                {{ $errors->first('image') }}
-                            </span>
-                        @endif
-                    </div>
+                    <upload-image title="Choose Image"
+                                  name="image"
+                                  remove-route="{{ route('admin.posts.remove-image', ['id' => $post->id]) }}"
+                                  source="{{ Upload::url($post->image) }}"
+                                  error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
+                    </upload-image>
                 </div>
 
                 <div class="form__group">

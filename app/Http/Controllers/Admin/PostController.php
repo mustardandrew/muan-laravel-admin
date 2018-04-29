@@ -286,4 +286,23 @@ class PostController extends Controller
         return redirect()->route('admin.posts');
     }
 
+    /**
+     * Remove image
+     *
+     * @param UploadService $uploadService
+     * @param int $id
+     * @return mixed
+     */
+    public function removeImage(UploadService $uploadService, $id)
+    {
+        $post = Post::findOrFail($id);;
+
+        if ($post->image) {
+            $uploadService->remove($post->image);
+            $post->image = "";
+            $post->save();
+        }
+
+        return response()->json(['message' => 'Image removed successfully!']);
+    }
 }

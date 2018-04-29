@@ -9,7 +9,7 @@ use Illuminate\Support\{
 use Muan\Admin\Console\Commands\InstallCommand;
 use Muan\Admin\Console\Commands\UserAddCommand;
 use Muan\Admin\Facades\{
-    AdminRoute, Blocks, FlashMessage, Properties, Gavatar
+    AdminRoute, Blocks, FlashMessage, Properties, Gavatar, Upload
 };
 use Muan\Admin\Http\Middleware\{
     RedirectIfAuthenticated, RedirectToAuthIfNotAdmin
@@ -75,6 +75,7 @@ class AdminServiceProvider extends ServiceProvider
         $loader->alias('Properties', Properties::class);
         $loader->alias('AdminRoute', AdminRoute::class);
         $loader->alias('Gavatar', Gavatar::class);
+        $loader->alias('Upload', Upload::class);
     }
 
     /**

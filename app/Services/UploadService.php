@@ -77,4 +77,18 @@ class UploadService
         $this->getDisk()->delete($fileName);
     }
 
+    /**
+     * Get url
+     *
+     * @param string|mixed $path
+     * @return string
+     */
+    public function url($path)
+    {
+        if (! $path) {
+            return '';
+        }
+        return $this->getDisk()->url($path);
+    }
+
 }

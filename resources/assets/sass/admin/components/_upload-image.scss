@@ -1,0 +1,66 @@
+ .images-wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    img {
+        border-radius: 4px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .image-preview {
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 10px;
+        color: #666;
+    }
+
+    .between-images {
+        padding: 10px;
+        color: #666;
+        font-size: 26px;
+    }
+
+    .images-block {
+        position: relative;
+    }
+
+    .image-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: red;
+        cursor: pointer;
+    }
+}
+
+.upload_field {
+    height: 0.1px; width: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.button-upload {
+    margin-top: 14px;
+    padding: 8px;
+    font-weight: 400;
+
+    i {
+        font-size: 16px;
+        margin-right: 3px;
+    }
+
+    .file-info {
+        font-size: 12px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #ffe4c4;
+    }
+}
+
+
+
+
