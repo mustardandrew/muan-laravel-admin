@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 class AdminRouteService
 {
 
-    protected $namespace = 'Muan\Admin\Http\Controllers\Admin';
+    //protected $namespace = 'Muan\Admin\Http\Controllers\Admin';
 
     /**
      * Prefix for admin panel
@@ -31,8 +31,7 @@ class AdminRouteService
      */
     public function routes(\Closure $closure)
     {
-        Route::namespace($this->namespace)
-            ->prefix('/' . $this->prefix())
+        Route::prefix('/' . $this->prefix())
             ->middleware('web')
             ->group($closure);
     }
