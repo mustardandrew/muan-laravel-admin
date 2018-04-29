@@ -33,7 +33,7 @@
 
             <div class="profile-avatar">
                 @if ($user->avatar)
-                    <img src="{{ Storage::disk('public')->url($user->avatar) }}" alt="{{ $user->name }}" />
+                    <img src="{{ Storage::disk(config('admin.diskname', 'public'))->url($user->avatar) }}" alt="{{ $user->name }}" />
                 @else
                     <img src="{{ Gavatar::url($user->email) }}" alt="{{ $user->name }}" />
                 @endif

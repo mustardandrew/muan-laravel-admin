@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 class AdminRouteService
 {
 
-    //protected $namespace = 'Muan\Admin\Http\Controllers\Admin';
-
     /**
      * Prefix for admin panel
      *

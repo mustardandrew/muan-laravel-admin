@@ -22,6 +22,14 @@ return [
     ],
 
     /**
+     * Filesystem Disk
+     * Configure in config/filesystem.php file
+     *
+     * As default used 'public' filesystem
+     */
+    'diskname' => 'public',
+
+    /**
      * Parameters for resize
      *
      * methods: fit, resize

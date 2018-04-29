@@ -96,7 +96,7 @@
                    href="#"
                    onclick="event.preventDefault();">
                     @if (Auth::user()->avatar)
-                        <img class="avatar" src="{{ Storage::disk('public')->url(Auth::user()->avatar) }}"/>
+                        <img class="avatar" src="{{ Storage::disk(config('admin.diskname', 'public'))->url(Auth::user()->avatar) }}"/>
                     @else
                         <img class="avatar" src="{{ Gavatar::url(Auth::user()->email) }}"/>
                     @endif

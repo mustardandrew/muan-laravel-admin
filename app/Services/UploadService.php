@@ -20,7 +20,8 @@ class UploadService
      */
     protected function getDisk()
     {
-        return Storage::disk('public');
+        $diskName = config('admin.diskname');
+        return Storage::disk($diskName);
     }
 
     /**

@@ -85,7 +85,7 @@
                         @if ($category->image)
                             <div>
                                 <div>(Now)</div>
-                                <img class="thumbnail" src="{{ Storage::disk('public')->url($category->image) }}" alt="" height="100">
+                                <img class="thumbnail" src="{{ Storage::disk(config('admin.diskname', 'public'))->url($category->image) }}" alt="" height="100">
                             </div>
                         @endif
 
