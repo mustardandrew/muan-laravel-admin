@@ -3,7 +3,7 @@
     "description": "Admin package for Laravel",
     "version": "0.1.5",
     "type": "package",
-    "keywords": ["laravel", "admin", "pane", "role", "permission", "package"],
+    "keywords": ["laravel", "admin", "panel", "role", "permission", "package"],
     "license": "MIT",
     "authors": [
         {
