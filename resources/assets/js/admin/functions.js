@@ -11,3 +11,13 @@ window.sizeForHumans = function(a, b)
 
     return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f];
 }
+
+window.getQueryParameters = function()
+{
+    return _.chain(decodeURIComponent(location.search))
+        .replace('?', '')
+        .split('&')
+        .map(_.partial(_.split, _, '=', 2))
+        .fromPairs()
+        .value();
+}

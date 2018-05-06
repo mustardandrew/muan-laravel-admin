@@ -6,14 +6,16 @@ const actions = {
         try {
             commit(header.DATA_TABE_START_LOADING_MUTATION);
 
-            let url = `${state.config.route}?`;
+            let url = `${state.config.route}`;
+            let params = '';
+
 
             if (state.query.column) {
-                url += `column=${state.query.column}`
+                params += `column=${state.query.column}`
                     + `&direction=${state.query.direction}&`;
             }
 
-            url += `page=${state.query.page}`
+            params += `page=${state.query.page}`
                 + `&per_page=${state.query.per_page}`;
 
             let strArray = [];
@@ -28,11 +30,12 @@ const actions = {
                 }
             }
             if (strArray.length) {
-                url += '&' + strArray.join("&");
+                params += '&' + strArray.join("&");
             }
 
-            let { data } = await window.axios.get(url);
+            let { data } = await window.axios.get(url + '?' + params);
             commit(header.DATA_TABLE_SET_MUTATION, data);
+            history.pushState(null, this.title, '?' + params);
         } catch (error) {
             console.log(error);
         } finally {

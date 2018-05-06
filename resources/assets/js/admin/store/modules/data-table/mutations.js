@@ -20,6 +20,19 @@ const mutations = {
     // Set config
     [DATA_TABLE_SET_BASE_CONFIG_MUTATION] (state, config) {
         state.config = config;
+
+        let params = getQueryParameters();
+
+        for (let key in params) {
+            if (state.query.hasOwnProperty(key)) {
+                state.query[key] = params[key];
+            } else {
+                if (key.match(/^filters/g)) {
+                    let filterKey = key.replace(/filters\[(.*?)\]/, '$1');
+                    state.query.filters[filterKey] = params[key];
+                }
+            }
+        }
     },
 
     // Set data from server
