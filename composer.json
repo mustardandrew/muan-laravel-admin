@@ -1,7 +1,7 @@
 {
     "name": "muan/laravel-admin",
     "description": "Admin package for Laravel",
-    "version": "0.1.6",
+    "version": "0.2.0",
     "type": "package",
     "keywords": ["laravel", "admin", "panel", "role", "permission", "package"],
     "license": "MIT",
