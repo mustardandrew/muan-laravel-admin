@@ -84,6 +84,8 @@
     height: 0;
     overflow: hidden;
 
+    z-index: 100;
+
     .menu__item {
       border-top: 1px solid #3d4957;
     }
