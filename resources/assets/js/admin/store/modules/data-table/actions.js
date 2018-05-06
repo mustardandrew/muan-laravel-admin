@@ -6,10 +6,14 @@ const actions = {
         try {
             commit(header.DATA_TABE_START_LOADING_MUTATION);
 
-            let url = `/${window.adminSlug}/api/${modelName}`
-                + `?column=${state.query.column}`
-                + `&direction=${state.query.direction}`
-                + `&page=${state.query.page}`
+            let url = `/${window.adminSlug}/api/${modelName}?`;
+
+            if (state.query.column) {
+                url += `column=${state.query.column}`
+                    + `&direction=${state.query.direction}&`;
+            }
+
+            url += `page=${state.query.page}`
                 + `&per_page=${state.query.per_page}`;
 
             let strArray = [];
@@ -23,7 +27,9 @@ const actions = {
                     strArray.push(pair);
                 }
             }
-            url += '&' + strArray.join("&");
+            if (strArray.length) {
+                url += '&' + strArray.join("&");
+            }
 
             let { data } = await window.axios.get(url);
             commit(header.DATA_TABLE_SET_MUTATION, data);

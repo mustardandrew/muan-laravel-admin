@@ -82,6 +82,16 @@ trait ExtendDataTableController
     }
 
     /**
+     * Get used fields
+     *
+     * @return array
+     */
+    protected function getUsedFields() : array
+    {
+        return ['id', 'slug'];
+    }
+
+    /**
      * Clear item
      *
      * @param array $item
@@ -90,9 +100,10 @@ trait ExtendDataTableController
     private function clearItem(array $item) : array
     {
         $keys = (array) $this->getColumnsKey();
+        $usedFields = $this->getUsedFields();
 
         foreach (array_keys($item) as $key) {
-            if (! in_array($key, $keys)) {
+            if (! in_array($key, $keys) && ! in_array($key, $usedFields)) {
                 unset($item[$key]);
             }
         }

@@ -9,7 +9,7 @@ const dataTable = {
         loading: false,
         query: {
             page: 1,
-            column: 'id',
+            column: '',
             direction: 'desc',
             per_page: 10,
             filters: {},
