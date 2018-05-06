@@ -40,7 +40,6 @@
     } from './../../store/modules/data-table/header.js';
 
     export default {
-        props: ['modelName'],
         data() {
             return {
                 page: this.$store.getters['dataTable/currentPage'],
@@ -81,16 +80,10 @@
                 this.page = this.currentPage;
             },
             changePerPage() {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_SET_PER_PAGE_ACTION}`, {
-                    perPage: parseInt(this.perPage),
-                    modelName: this.modelName
-                });
+                this.$store.dispatch(`dataTable/${DATA_TABLE_SET_PER_PAGE_ACTION}`, parseInt(this.perPage));
             },
             setPage(page) {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_SET_PAGE_ACTION}`, {
-                    page: page,
-                    modelName: this.modelName
-                });
+                this.$store.dispatch(`dataTable/${DATA_TABLE_SET_PAGE_ACTION}`, page);
             }
         }
     }

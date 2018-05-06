@@ -12,5 +12,5 @@
 @endsection
 
 @section('content')
-    <data-table-wrapper model-name="permissions"></data-table-wrapper>
+    <data-table-wrapper route="{{ route('admin.api.permissions') }}" title="Permissions"></data-table-wrapper>
 @endsection

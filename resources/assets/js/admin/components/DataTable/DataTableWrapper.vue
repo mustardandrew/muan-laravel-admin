@@ -12,7 +12,7 @@
 
         <div class="data-table__title">
 
-            <h1>{{ modelName }}</h1>
+            <h1>{{ title }}</h1>
 
             <div class="flex-space"></div>
 
@@ -42,14 +42,15 @@
 
         </div>
 
-        <data-table-pagination :model-name="modelName"></data-table-pagination>
-        <data-table-table :model-name="modelName"></data-table-table>
-        <data-table-pagination :model-name="modelName"></data-table-pagination>
+        <data-table-pagination></data-table-pagination>
+        <data-table-table></data-table-table>
+        <data-table-pagination></data-table-pagination>
     </div>
 </template>
 
 <script>
     import {
+        DATA_TABLE_SET_BASE_CONFIG_MUTATION,
         DATA_TABLE_GET_LIST_ACTION,
         DATA_TABLE_MULTI_ACTION
     } from '../../store/modules/data-table/header';
@@ -58,7 +59,7 @@
     import DataTableTable from './DataTableTable';
 
     export default {
-        props: ['modelName'],
+        props: ['route', 'title'],
         mounted() {
             this.fetchData();
         },
@@ -78,14 +79,15 @@
         },
         methods: {
             fetchData() {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_GET_LIST_ACTION}`, this.modelName);
+                this.$store.commit(`dataTable/${DATA_TABLE_SET_BASE_CONFIG_MUTATION}`, {
+                     route: this.route,
+                     title: this.title
+                });
+                this.$store.dispatch(`dataTable/${DATA_TABLE_GET_LIST_ACTION}`);
             },
             gotoAction(route) {
                 if (this.idList.length) {
-                    this.$store.dispatch(`dataTable/${DATA_TABLE_MULTI_ACTION}`, {
-                        modelName: this.modelName,
-                        route: route
-                    });
+                    this.$store.dispatch(`dataTable/${DATA_TABLE_MULTI_ACTION}`, route);
                 }
             }
         },

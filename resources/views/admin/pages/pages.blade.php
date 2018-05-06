@@ -12,5 +12,5 @@
 @endsection
 
 @section('content')
-    <data-table-wrapper model-name="pages"></data-table-wrapper>
+    <data-table-wrapper route="{{ route('admin.api.pages') }}" title="Pages"></data-table-wrapper>
 @endsection

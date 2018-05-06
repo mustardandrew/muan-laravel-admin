@@ -148,8 +148,7 @@ class PostController extends Controller
     protected function customFilter($builder, $field, $value)
     {
         if ($field == 'category') {
-            $builder->where('category_id', $value);
-            return true;
+            return $builder->where('category_id', $value);
         }
 
         return false;

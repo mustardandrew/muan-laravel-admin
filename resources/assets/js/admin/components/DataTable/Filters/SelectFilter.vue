@@ -18,7 +18,7 @@
     } from './../../../store/modules/data-table/header';
 
     export default {
-        props: ['column', 'field', 'modelName'],
+        props: ['column', 'field'],
         computed: {
             query() {
                 return this.$store.getters['dataTable/query'];
@@ -26,7 +26,7 @@
         },
         methods: {
             search () {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_SEARCH_ACTION}`, this.modelName);
+                this.$store.dispatch(`dataTable/${DATA_TABLE_SEARCH_ACTION}`);
             }
         }
     }

@@ -141,7 +141,7 @@ trait ExtendDataTableController
      * @param $builder
      * @param string $field
      * @param mixed $value
-     * @return bool
+     * @return mixed
      */
     protected function customFilter($builder, $field, $value)
     {
@@ -171,11 +171,12 @@ trait ExtendDataTableController
 
         if ($filters = $request->filters) {
             foreach ($filters as $field => $value) {
-                if ($this->customFilter($builder, $field, $value)) {
+                if ($result = $this->customFilter($builder, $field, $value)) {
+                    $builder = $result;
                     continue;
                 }
                 if (is_string($value)) {
-                    $builder->where($this->getRealField($field), 'like', "%{$value}%");
+                    $builder = $builder->where($this->getRealField($field), 'like', "%{$value}%");
                 }
                 // TODO: Between filters if is_array($value)
             }

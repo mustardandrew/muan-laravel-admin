@@ -140,10 +140,9 @@ class CategoryController extends Controller
     protected function customFilter($builder, $field, $value)
     {
         if ($field == 'category') {
-            $builder->whereHas('category', function ($query) use (&$value) {
+            return $builder->whereHas('category', function ($query) use (&$value) {
                 $query->where('id', $value);
             });
-            return true;
         }
 
         return false;

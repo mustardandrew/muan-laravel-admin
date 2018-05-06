@@ -2,11 +2,11 @@ import * as header from './header';
 
 const actions = {
     // Load data from database
-    async [header.DATA_TABLE_GET_LIST_ACTION] ({commit, state}, modelName) {
+    async [header.DATA_TABLE_GET_LIST_ACTION] ({commit, state}) {
         try {
             commit(header.DATA_TABE_START_LOADING_MUTATION);
 
-            let url = `/${window.adminSlug}/api/${modelName}?`;
+            let url = `${state.config.route}?`;
 
             if (state.query.column) {
                 url += `column=${state.query.column}`
@@ -43,22 +43,22 @@ const actions = {
     // Query
 
     // Set page
-    [header.DATA_TABLE_SET_PAGE_ACTION] ({commit, dispatch, state}, data) {
+    [header.DATA_TABLE_SET_PAGE_ACTION] ({commit, dispatch, state}, page) {
         let oldPage = state.query.page;
-        commit(header.DATA_TABLE_SET_PAGE_MUTATION, data.page);
+        commit(header.DATA_TABLE_SET_PAGE_MUTATION, page);
         if (oldPage !== state.query.page) {
             commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
-            dispatch(header.DATA_TABLE_GET_LIST_ACTION, data.modelName);
+            dispatch(header.DATA_TABLE_GET_LIST_ACTION);
         }
     },
 
     // Set per page
-    [header.DATA_TABLE_SET_PER_PAGE_ACTION] ({commit, dispatch, state}, data) {
+    [header.DATA_TABLE_SET_PER_PAGE_ACTION] ({commit, dispatch, state}, per_page) {
         let oldPerPage = state.query.per_page;
-        commit(header.DATA_TABLE_SET_PER_PAGE_MUTATION, data.perPage);
+        commit(header.DATA_TABLE_SET_PER_PAGE_MUTATION, perPage);
         if (oldPerPage !== state.query.per_page) {
             commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
-            dispatch(header.DATA_TABLE_GET_LIST_ACTION, data.modelName);
+            dispatch(header.DATA_TABLE_GET_LIST_ACTION);
         }
     },
 
@@ -71,30 +71,30 @@ const actions = {
             commit(header.DATA_TABLE_SET_DIRECTION_MUTATION, data.direction);
         }
         commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
-        dispatch(header.DATA_TABLE_GET_LIST_ACTION, data.modelName);
+        dispatch(header.DATA_TABLE_GET_LIST_ACTION);
     },
 
     // Reset
-    [header.DATA_TABLE_RESET_ACTION] ({commit, dispatch}, modelName) {
+    [header.DATA_TABLE_RESET_ACTION] ({commit, dispatch}) {
         commit(header.DATA_TABLE_RESET_MUTATION);
         commit(header.DATA_TABLE_SET_PAGE_MUTATION, 1);
         commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
-        dispatch(header.DATA_TABLE_GET_LIST_ACTION, modelName);
+        dispatch(header.DATA_TABLE_GET_LIST_ACTION);
     },
 
     // Search
-    [header.DATA_TABLE_SEARCH_ACTION] ({commit, dispatch}, modelName) {
+    [header.DATA_TABLE_SEARCH_ACTION] ({commit, dispatch}) {
         commit(header.DATA_TABLE_SET_PAGE_MUTATION, 1);
         commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
-        dispatch(header.DATA_TABLE_GET_LIST_ACTION, modelName);
+        dispatch(header.DATA_TABLE_GET_LIST_ACTION);
     },
 
     // Multi action
-    async [header.DATA_TABLE_MULTI_ACTION] ({commit, dispatch, state}, params) {
+    async [header.DATA_TABLE_MULTI_ACTION] ({commit, dispatch, state}, route) {
         try {
             commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, []);
 
-            let { data } = await window.axios.post(`${params.route}`, {
+            let { data } = await window.axios.post(`${route}`, {
                 'ids': state.idList
             });
 
@@ -102,7 +102,7 @@ const actions = {
                 commit(header.DATA_TABLE_SET_MESSAGE_MUTATION, data);
             }
 
-            dispatch(header.DATA_TABLE_GET_LIST_ACTION, params.modelName);
+            dispatch(header.DATA_TABLE_GET_LIST_ACTION);
         } catch (error) {
             console.log(error);
         } finally {

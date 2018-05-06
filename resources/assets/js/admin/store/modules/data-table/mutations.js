@@ -1,4 +1,6 @@
 import {
+    DATA_TABLE_SET_BASE_CONFIG_MUTATION,
+
     DATA_TABLE_SET_MUTATION,
     DATA_TABLE_SET_PAGE_MUTATION,
     DATA_TABLE_SET_PER_PAGE_MUTATION,
@@ -14,6 +16,12 @@ import {
 } from './header';
 
 const mutations = {
+
+    // Set config
+    [DATA_TABLE_SET_BASE_CONFIG_MUTATION] (state, config) {
+        state.config = config;
+    },
+
     // Set data from server
     [DATA_TABLE_SET_MUTATION] (state, data) {
         state.data = data;

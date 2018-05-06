@@ -124,13 +124,12 @@ class UserController extends Controller
      * @param mixed $value
      * @return bool
      */
-    protected function customFilter($builder, $field, $value): bool
+    protected function customFilter($builder, $field, $value)
     {
         if ($field === 'roles') {
-            $builder->whereHas('roles', function ($query) use ($value) {
+            return $builder->whereHas('roles', function ($query) use ($value) {
                 $query->where('id', $value);
             });
-            return true;
         }
 
         return false;

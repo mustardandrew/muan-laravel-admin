@@ -5,6 +5,10 @@ import getters from './getters';
 const dataTable = {
     namespaced: true,
     state: {
+        config: {
+            route: '',
+            title: 'Unnamed'
+        },
         data: {},
         loading: false,
         query: {

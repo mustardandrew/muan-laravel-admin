@@ -45,8 +45,7 @@
                             v-if="column.filter"
                             :is="column.filter.type"
                             :column="column"
-                            :field="name"
-                            :model-name="modelName">
+                            :field="name">
                         </component>
                     </td>
 
@@ -132,7 +131,6 @@
     import DataTableActions from './DataTableActions';
 
     export default {
-        props: ['modelName'],
         data() {
             return {
                 idList: [],
@@ -159,9 +157,7 @@
                     return;
                 }
 
-                let data = {
-                    modelName: this.modelName
-                };
+                let data = {};
 
                 if (column === this.query.column) {
                     data.direction = this.query.direction === 'desc' ? 'asc' : 'desc';
@@ -173,10 +169,10 @@
                 this.$store.dispatch(`dataTable/${DATA_TABLE_SET_COLUMN_DIRECTION_ACTION}`, data);
             },
             search() {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_SEARCH_ACTION}`, this.modelName);
+                this.$store.dispatch(`dataTable/${DATA_TABLE_SEARCH_ACTION}`);
             },
             reset() {
-                this.$store.dispatch(`dataTable/${DATA_TABLE_RESET_ACTION}`, this.modelName);
+                this.$store.dispatch(`dataTable/${DATA_TABLE_RESET_ACTION}`);
             },
             changeCheckbox() {
                 this.$store.commit(`dataTable/${DATA_TABLE_SET_ID_LIST_MUTATION}`, this.idList);

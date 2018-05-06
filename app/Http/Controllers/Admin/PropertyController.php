@@ -64,8 +64,7 @@ class PropertyController extends Controller
     protected function customFilter($builder, $field, $value)
     {
         if ($field === 'group') {
-            $builder->where('group_id', $value);
-            return true;
+            return $builder->where('group_id', $value);
         }
 
         return false;
