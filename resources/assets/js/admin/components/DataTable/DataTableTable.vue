@@ -123,6 +123,7 @@
     import StringField from './Fields/StringField.vue';
     import ActiveField from './Fields/ActiveField.vue';
     import HtmlField from './Fields/HtmlField.vue';
+    import SourceField from './Fields/SourceField.vue';
 
     // Filters
     import StringFilter from './Filters/StringFilter.vue';
@@ -198,6 +199,7 @@
             StringField,
             ActiveField,
             HtmlField,
+            SourceField,
             // Filters
             StringFilter,
             SelectFilter,
