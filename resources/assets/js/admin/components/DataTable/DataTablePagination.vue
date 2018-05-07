@@ -28,7 +28,7 @@
                     {{ value }}
                 </option>
             </select>
-            records
+            of {{ data.model.total }} records
         </label>
     </div>
 </template>

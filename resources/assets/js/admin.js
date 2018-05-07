@@ -9,12 +9,15 @@ import PageTypeWrapper from './admin/components/PageType/PageTypeWrapper';
 import DataTableWrapper from './admin/components/DataTable/DataTableWrapper';
 import UploadImage from './admin/components/UploadImage';
 
-const admin = new Vue({
-    el: '#admin',
-    store,
-    components: {
-        PageTypeWrapper,
-        DataTableWrapper,
-        UploadImage
-    }
-});
+Vue.component('page-type-wrapper', PageTypeWrapper);
+Vue.component('data-table-wrapper', DataTableWrapper);
+Vue.component('upload-image', UploadImage);
+
+if (document.getElementById('admin')) {
+    const admin = new Vue({
+        el: '#admin',
+        store
+    });
+}
+
+

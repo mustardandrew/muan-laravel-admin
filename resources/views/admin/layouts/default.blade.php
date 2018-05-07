@@ -27,7 +27,7 @@
     </head>
 
     <body>
-        <div id="admin">
+        <div class="panel-wrapper">
             @yield('main')
         </div>
 

@@ -12,5 +12,5 @@
 @endsection
 
 @section('content')
-    <data-table-wrapper route="{{ route('admin.api.properties') }}" title="Properties"></data-table-wrapper>
+    <data-table-wrapper id="admin" route="{{ route('admin.api.properties') }}" title="Properties"></data-table-wrapper>
 @endsection
