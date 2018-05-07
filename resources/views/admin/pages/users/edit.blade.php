@@ -120,7 +120,8 @@
             <div class="form__item">
 
                 <div class=form__group>
-                    <upload-image title="Choose Avatar"
+                    <upload-image id="upload-image"
+                                  title="Choose Avatar"
                                   name="image"
                                   remove-route="{{ route('admin.users.remove-image', ['id' => $user->id]) }}"
                                   source="{{ Upload::url($user->avatar) }}"

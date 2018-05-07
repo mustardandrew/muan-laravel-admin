@@ -81,7 +81,8 @@
                 </div>
 
                 <div class=form__group>
-                    <upload-image title="Choose Image"
+                    <upload-image id="upload-image"
+                                  title="Choose Image"
                                   name="image"
                                   remove-route="{{ route('admin.categories.remove-image', ['id' => $category->id]) }}"
                                   source="{{ Upload::url($category->image) }}"

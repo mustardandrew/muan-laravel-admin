@@ -80,7 +80,8 @@
                 </div>
 
                 <div class=form__group>
-                    <upload-image title="Choose Image"
+                    <upload-image id="upload-image"
+                                  title="Choose Image"
                                   name="image"
                                   error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
                     </upload-image>

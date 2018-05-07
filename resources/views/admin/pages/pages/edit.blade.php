@@ -60,7 +60,8 @@
                 </div>
 
                 <div class=form__group>
-                    <upload-image title="Choose Image"
+                    <upload-image id="upload-image"
+                                  title="Choose Image"
                                   name="image"
                                   remove-route="{{ route('admin.pages.remove-image', ['id' => $page->id]) }}"
                                   source="{{ Upload::url($page->image) }}"

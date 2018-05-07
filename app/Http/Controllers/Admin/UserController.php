@@ -12,6 +12,8 @@ use Muan\Admin\Http\Requests\{
     CreateUserRequest, UpdateUserRequest
 };
 use Muan\Admin\Services\UploadService;
+use Upload;
+use Gavatar;
 
 /**
  * Class UserController
@@ -44,6 +46,15 @@ class UserController extends Controller
                 'title'  => 'ID',
                 'field'  => 'string-field',
                 'style'  => 'width: 5%',
+                'sorted' => true,
+                'filter' => [
+                    'type' => 'string-filter',
+                ],
+            ],
+            'avatar' => [
+                'title'  => 'Avatar',
+                'field'  => 'image-field',
+                'style'  => 'width: 80px;',
                 'sorted' => true,
                 'filter' => [
                     'type' => 'string-filter',
@@ -112,6 +123,11 @@ class UserController extends Controller
             $role = $role['name'];
         }
         $item['roles'] = implode(', ', $item['roles']);
+
+        $item['avatar'] = [
+            'src' => $item['avatar'] ? Upload::url($item['avatar']) : Gavatar::url($item['email']),
+            'style' => 'width: 48px; height: 48px; border-radius: 50%;',
+        ];
 
         return $item;
     }

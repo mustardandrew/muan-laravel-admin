@@ -20,4 +20,8 @@ if (document.getElementById('admin')) {
     });
 }
 
+if (document.getElementById('upload-image')) {
+    const uploadImage = new Vue({el: '#upload-image'});
+}
+
 

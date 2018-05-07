@@ -118,7 +118,8 @@
             <div class="form__item">
 
                 <div class=form__group>
-                    <upload-image title="Choose Avatar"
+                    <upload-image id="upload-image"
+                                  title="Choose Avatar"
                                   name="image"
                                   error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
                     </upload-image>
