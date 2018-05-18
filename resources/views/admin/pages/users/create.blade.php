@@ -118,7 +118,7 @@
             <div class="form__item">
 
                 <div class=form__group>
-                    <upload-image id="upload-image"
+                    <upload-image class="vue-wrapper"
                                   title="Choose Avatar"
                                   name="image"
                                   error="{{ $errors->has('image') ? $errors->first('image') : '' }}">

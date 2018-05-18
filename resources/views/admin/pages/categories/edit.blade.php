@@ -81,7 +81,7 @@
                 </div>
 
                 <div class=form__group>
-                    <upload-image id="upload-image"
+                    <upload-image class="vue-wrapper"
                                   title="Choose Image"
                                   name="image"
                                   remove-route="{{ route('admin.categories.remove-image', ['id' => $category->id]) }}"

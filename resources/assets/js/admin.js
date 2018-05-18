@@ -13,15 +13,13 @@ Vue.component('page-type-wrapper', PageTypeWrapper);
 Vue.component('data-table-wrapper', DataTableWrapper);
 Vue.component('upload-image', UploadImage);
 
-if (document.getElementById('admin')) {
-    const admin = new Vue({
-        el: '#admin',
+let elements = document.getElementsByClassName("vue-wrapper");
+
+for (let i = 0; i < elements.length; i++) {
+    new Vue({
+        el: elements[i],
         store
     });
-}
-
-if (document.getElementById('upload-image')) {
-    const uploadImage = new Vue({el: '#upload-image'});
 }
 
 

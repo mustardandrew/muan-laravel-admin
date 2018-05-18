@@ -12,5 +12,5 @@
 @endsection
 
 @section('content')
-    <data-table-wrapper id="admin" route="{{ route('admin.api.categories') }}" title="Categories"></data-table-wrapper>
+    <data-table-wrapper class="vue-wrapper" route="{{ route('admin.api.categories') }}" title="Categories"></data-table-wrapper>
 @endsection

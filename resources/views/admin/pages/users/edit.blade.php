@@ -120,7 +120,7 @@
             <div class="form__item">
 
                 <div class=form__group>
-                    <upload-image id="upload-image"
+                    <upload-image class="vue-wrapper"
                                   title="Choose Avatar"
                                   name="image"
                                   remove-route="{{ route('admin.users.remove-image', ['id' => $user->id]) }}"
