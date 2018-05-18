@@ -3,6 +3,7 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Muan\Admin\Models\Scopes\SlugScope;
 
 /**
  * Class Property
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Property extends Model
 {
+    use SlugScope;
 
     /**
      * @var array

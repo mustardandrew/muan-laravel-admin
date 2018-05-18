@@ -3,6 +3,9 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Muan\Admin\Models\Scopes\{
+    SlugScope, PublishedScope, ActiveScope
+};
 
 /**
  * Class Post
@@ -11,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    use SlugScope, PublishedScope, ActiveScope;
 
     /**
      * @var array

@@ -123,7 +123,8 @@ class InstallCommand extends Command
         ]);
         $this->call('vendor:publish', [
             '--provider' => AdminServiceProvider::class,
-            '--tag' => 'apublic'
+            '--tag' => 'apublic',
+            '--force' => true,
         ]);
 
         $this->warn("End publishes...\n");

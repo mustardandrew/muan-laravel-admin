@@ -3,6 +3,9 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Muan\Admin\Models\Scopes\{
+    SlugScope, ActiveScope
+};
 
 /**
  * Class Block
@@ -11,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Block extends Model
 {
+    use SlugScope, ActiveScope;
 
     /**
      * @var array
