@@ -1,22 +1,6 @@
-@extends('admin::admin.layouts.main')
-
-@section('title', 'Create Group')
-
-@section('breadcrumbs')
-    @php
-        $breadcrumbs = [
-            route('admin.groups') => 'Groups',
-            '' => 'Create Group'
-        ];
-    @endphp
-    @include('admin::admin.layouts.chunks._breadcrumbs', $breadcrumbs)
-@endsection
-
-@section('content')
-    <h1>Create Group</h1>
-
-    <form class="form" action="{{ route('admin.groups.store') }}" method="POST">
-        {{ csrf_field() }}
+<template>
+    <form class="form" @submit.prevent="createGroup()">
+        <h2>Add Group</h2>
 
         <div class="row">
             <div class="column two mr-20 mb-20">
@@ -29,12 +13,10 @@
                                name="slug"
                                id="slug"
                                placeholder="Input slug"
-                               value="{{ old('slug') }}" />
-                        @if ($errors->has('slug'))
-                            <span class="control__help control__help--error">
-                                {{ $errors->first('slug') }}
-                            </span>
-                        @endif
+                               v-model="groupFormData.slug"/>
+                        <span v-if="groupFormErrors.slug" class="control__help control__help--error">
+                                {{ groupFormErrors.slug }}
+                        </span>
                     </div>
                 </div>
 
@@ -46,12 +28,10 @@
                                name="title"
                                id="title"
                                placeholder="Input title"
-                               value="{{ old('title') }}" />
-                        @if ($errors->has('title'))
-                            <span class="control__help control__help--error">
-                                {{ $errors->first('title') }}
-                            </span>
-                        @endif
+                               v-model="groupFormData.title" />
+                        <span v-if="groupFormErrors.title" class="control__help control__help--error">
+                                {{ groupFormErrors.title }}
+                        </span>
                     </div>
                 </div>
 
@@ -63,12 +43,11 @@
                                   id="description"
                                   placeholder="Input description"
                                   cols="30"
-                                  rows="5">{{ old('description') }}</textarea>
-                        @if ($errors->has('description'))
-                            <span class="control__help control__help--error">
-                                {{ $errors->first('description') }}
-                            </span>
-                        @endif
+                                  rows="5"
+                                  v-model="groupFormData.description"></textarea>
+                        <span v-if="groupFormErrors.description" class="control__help control__help--error">
+                                {{ groupFormErrors.description }}
+                        </span>
                     </div>
                 </div>
 
@@ -82,10 +61,29 @@
             <button type="submit" class="button button--dark mr-5">
                 Create
             </button>
-            <a href="{{ route('admin.groups') }}" class="button">
-                Cancel
-            </a>
         </div>
 
     </form>
-@endsection
+</template>
+
+<script>
+    import * as header from '../../store/modules/settings/header';
+
+    export default {
+
+        computed: {
+            groupFormData() {
+                return this.$store.getters['settings/groupFormData'];
+            },
+            groupFormErrors() {
+                return this.$store.getters['settings/groupFormErrors'];
+            }
+        },
+
+        methods: {
+            createGroup() {
+                this.$store.dispatch(`settings/${header.SETTINGS_FORM_GROUP_SEND_ACTION}`);
+            }
+        }
+    }
+</script>

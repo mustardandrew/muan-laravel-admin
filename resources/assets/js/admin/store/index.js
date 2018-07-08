@@ -8,6 +8,7 @@ import getters from './getters';
 // modules
 import pageType from './modules/page-type';
 import dataTable from './modules/data-table';
+import settings from './modules/settings';
 
 Vue.use(Vuex);
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
     actions,
     modules: {
         pageType,
-        dataTable
+        dataTable,
+        settings
     }
 });
 

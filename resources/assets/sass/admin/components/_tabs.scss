@@ -15,6 +15,21 @@
       &.active {
         background-color: #2b3643;
       }
+
+      &--button {
+        padding: 5px 15px;
+        background-color: lightskyblue;
+        border-radius: 25px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        margin-top: 5px;
+        cursor: pointer;
+
+        &.active {
+          background-color: #298bc7;
+        }
+      }
     }
   }
 
@@ -41,6 +56,15 @@
         border-radius: 4px 0 0 4px;
         border-right: 0;
         border-bottom: 1px solid #fff;
+
+        &--button {
+          border-radius: 25px;
+          border: 0;
+
+          &.active {
+            background-color: #298bc7;
+          }
+        }
       }
     }
 
@@ -58,6 +82,54 @@
 
     .tabs__items .item {
       border-radius: 0 4px 4px 0;
+
+      &--button {
+        border-radius: 25px;
+        border: 0;
+
+        &.active {
+          background-color: #298bc7;
+        }
+      }
+    }
+  }
+
+  .block-actions {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .group-block {
+    position: relative;
+
+    &:hover .block-actions {
+        display: block;
+    }
+  }
+
+
+
+
+  .action {
+    padding-left: 4px;
+    cursor: pointer;
+
+    &--destroy {
+      color: #ce5555;
+    }
+  }
+
+  .add-new-property {
+    color: #666;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 15px;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 

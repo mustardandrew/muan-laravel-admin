@@ -24,6 +24,16 @@ class Group extends Model
     ];
 
     /**
+     * Hidden for api
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    /**
      * Relation to properties
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -32,10 +32,10 @@ class CreatePropertyRequest extends FormRequest
     {
         return [
             'group_id' => 'required|integer',
-            'slug' => 'required|min:3|max:225|unique:properties',
+            'slug' => 'required|min:2|max:225|unique:properties',
             'title' => 'required|min:3|max:225',
             'description' => 'max:225',
-            'type' => 'required|in:' . implode(',', (array_keys(Properties::getTypes()))),
+            'type' => 'required|in:' . implode(',', ['string', 'boolean', 'text', 'integer']),
             'value' => 'max:225',
         ];
     }
