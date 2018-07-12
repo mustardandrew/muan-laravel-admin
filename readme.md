@@ -38,10 +38,11 @@ composer require muan/laravel-acl
 // Use traits
 use Muan\Acl\Traits\{HasPermissionsTrait, HasRolesTrait};
 use Muan\Admin\Models\Traits\AdminExtendUser;
+use Muan\Comments\Traits\CanComment;
  
 class User extends Authenticatable
 {
-    use HasPermissionsTrait, HasRolesTrait, AdminExtendUser;
+    use HasPermissionsTrait, HasRolesTrait, AdminExtendUser, CanComment;
     
     // ...
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Muan\Admin\Models\Scopes\{
     SlugScope, ActiveScope
 };
+use Muan\Comments\Traits\Commentable;
 
 /**
  * Class Category
@@ -14,7 +15,7 @@ use Muan\Admin\Models\Scopes\{
  */
 class Category extends Model
 {
-    use SlugScope, ActiveScope;
+    use SlugScope, ActiveScope, Commentable;
 
     /**
      * @var array

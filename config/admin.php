@@ -99,6 +99,11 @@ return [
                     'icon'  => 'fas fa-file-code',
                     'route' => 'admin.posts',
                 ],
+                [
+                    'title' => 'Comments',
+                    'icon'  => 'far fa-comments',
+                    'route' => 'admin.comments',
+                ],
             ],
         ],
         [
@@ -118,21 +123,6 @@ return [
                     'title' => 'Permissions',
                     'icon'  => 'fas fa-key',
                     'route' => 'admin.permissions',
-                ],
-            ],
-        ],
-        [
-            'title' => 'Config',
-            'menu' => [
-                [
-                    'title' => 'Group',
-                    'icon'  => 'fas fa-cubes',
-                    'route' => 'admin.groups',
-                ],
-                [
-                    'title' => 'Properties',
-                    'icon'  => 'fas fa-cube',
-                    'route' => 'admin.properties',
                 ],
             ],
         ],

@@ -63,7 +63,6 @@
                                name="is_active"
                                id="is_active"
                                value="1"
-                               placeholder="Input slug"
                             {{ $block->is_active ? 'checked' : '' }}/>
                         <label class="control__label" for="is_active">Is Active</label>
 

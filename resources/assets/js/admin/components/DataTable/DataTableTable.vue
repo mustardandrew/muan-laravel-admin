@@ -118,11 +118,13 @@
 
     // Fields
     import ImageField from './Fields/ImageField.vue';
-    import LinkField from './Fields/LinkField.vue';
     import StringField from './Fields/StringField.vue';
     import ActiveField from './Fields/ActiveField.vue';
     import HtmlField from './Fields/HtmlField.vue';
+
+    import LinkField from './Fields/LinkField.vue';
     import SourceField from './Fields/SourceField.vue';
+    import AnchorField from './Fields/AnchorField.vue';
 
     // Filters
     import StringFilter from './Filters/StringFilter.vue';
@@ -191,11 +193,14 @@
         components: {
             // Fields
             ImageField,
-            LinkField,
+
             StringField,
             ActiveField,
             HtmlField,
+
+            LinkField,
             SourceField,
+            AnchorField,
             // Filters
             StringFilter,
             SelectFilter,

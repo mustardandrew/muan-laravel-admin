@@ -17,11 +17,22 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
 
     });
 
-
     AdminRoute::authRoutes(function() {
 
         // Dashboard
         Route::view('/', 'admin::admin.pages.dashboard')->name('admin.dashboard');
+
+        // Blocks
+        Route::prefix('blocks')->group(function() {
+            Route::view('/', 'admin::admin.pages.blocks')->name('admin.blocks');
+
+            Route::view('/create', 'admin::admin.pages.blocks.create')->name('admin.blocks.create');
+            Route::post('/create', 'BlockController@store')->name('admin.blocks.store');
+            Route::get('/edit/{id}', 'BlockController@edit')->name('admin.blocks.edit');
+            Route::post('/edit/{id}', 'BlockController@update')->name('admin.blocks.update');
+            Route::get('/delete/{id}', 'BlockController@delete')->name('admin.blocks.delete');
+            Route::post('/delete/{id}', 'BlockController@destroy')->name('admin.blocks.destroy');
+        });
 
         // Page
         Route::prefix('pages')->group(function() {
@@ -37,40 +48,42 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
             Route::post('/remove-image/{id}', 'PageController@removeImage')->name('admin.pages.remove-image');
         });
 
-        // Properties
-        Route::prefix('properties')->group(function() {
-            Route::view('/', 'admin::admin.pages.properties')->name('admin.properties');
+        // Categories
+        Route::prefix('categories')->group(function() {
+            Route::view('/', 'admin::admin.pages.categories')->name('admin.categories');
 
-            Route::get('/create', 'PropertyController@create')->name('admin.properties.create');
-            Route::post('/create', 'PropertyController@store')->name('admin.properties.store');
-            Route::get('/edit/{id}', 'PropertyController@edit')->name('admin.properties.edit');
-            Route::post('/edit/{id}', 'PropertyController@update')->name('admin.properties.update');
-            Route::get('/delete/{id}', 'PropertyController@delete')->name('admin.properties.delete');
-            Route::post('/delete/{id}', 'PropertyController@destroy')->name('admin.properties.destroy');
+            Route::get('/create', 'CategoryController@create')->name('admin.categories.create');
+            Route::post('/create', 'CategoryController@store')->name('admin.categories.store');
+            Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.categories.edit');
+            Route::post('/edit/{id}', 'CategoryController@update')->name('admin.categories.update');
+            Route::get('/delete/{id}', 'CategoryController@delete')->name('admin.categories.delete');
+            Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.categories.destroy');
+
+            Route::post('/remove-image/{id}', 'CategoryController@removeImage')->name('admin.categories.remove-image');
         });
 
-        // Groups
-        Route::prefix('groups')->group(function() {
-            Route::view('/', 'admin::admin.pages.groups')->name('admin.groups');
+        // Posts
+        Route::prefix('posts')->group(function() {
+            Route::view('/', 'admin::admin.pages.posts')->name('admin.posts');
 
-            Route::view('/create', 'admin::admin.pages.groups.create')->name('admin.groups.create');
-            Route::post('/create', 'GroupController@store')->name('admin.groups.store');
-            Route::get('/edit/{id}', 'GroupController@edit')->name('admin.groups.edit');
-            Route::post('/edit/{id}', 'GroupController@update')->name('admin.groups.update');
-            Route::get('/delete/{id}', 'GroupController@delete')->name('admin.groups.delete');
-            Route::post('/delete/{id}', 'GroupController@destroy')->name('admin.groups.destroy');
+            Route::get('/create', 'PostController@create')->name('admin.posts.create');
+            Route::post('/create', 'PostController@store')->name('admin.posts.store');
+            Route::get('/edit/{id}', 'PostController@edit')->name('admin.posts.edit');
+            Route::post('/edit/{id}', 'PostController@update')->name('admin.posts.update');
+            Route::get('/delete/{id}', 'PostController@delete')->name('admin.posts.delete');
+            Route::post('/delete/{id}', 'PostController@destroy')->name('admin.posts.destroy');
+
+            Route::post('/remove-image/{id}', 'PostController@removeImage')->name('admin.posts.remove-image');
         });
 
-        // Blocks
-        Route::prefix('blocks')->group(function() {
-            Route::view('/', 'admin::admin.pages.blocks')->name('admin.blocks');
+        // Comments
+        Route::prefix('comments')->group(function() {
+            Route::view('/', 'admin::admin.pages.comments')->name('admin.comments');
 
-            Route::view('/create', 'admin::admin.pages.blocks.create')->name('admin.blocks.create');
-            Route::post('/create', 'BlockController@store')->name('admin.blocks.store');
-            Route::get('/edit/{id}', 'BlockController@edit')->name('admin.blocks.edit');
-            Route::post('/edit/{id}', 'BlockController@update')->name('admin.blocks.update');
-            Route::get('/delete/{id}', 'BlockController@delete')->name('admin.blocks.delete');
-            Route::post('/delete/{id}', 'BlockController@destroy')->name('admin.blocks.destroy');
+            Route::get('/edit/{id}', 'CommentController@edit')->name('admin.comments.edit');
+            Route::post('/edit/{id}', 'CommentController@update')->name('admin.comments.update');
+            Route::get('/delete/{id}', 'CommentController@delete')->name('admin.comments.delete');
+            Route::post('/delete/{id}', 'CommentController@destroy')->name('admin.comments.destroy');
         });
 
         // Users
@@ -121,34 +134,6 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
             Route::post('/m-delete', 'PermissionController@mDestroy')->name('admin.permissions.m-destroy');
         });
 
-        // Categories
-        Route::prefix('categories')->group(function() {
-            Route::view('/', 'admin::admin.pages.categories')->name('admin.categories');
-
-            Route::get('/create', 'CategoryController@create')->name('admin.categories.create');
-            Route::post('/create', 'CategoryController@store')->name('admin.categories.store');
-            Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.categories.edit');
-            Route::post('/edit/{id}', 'CategoryController@update')->name('admin.categories.update');
-            Route::get('/delete/{id}', 'CategoryController@delete')->name('admin.categories.delete');
-            Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.categories.destroy');
-
-            Route::post('/remove-image/{id}', 'CategoryController@removeImage')->name('admin.categories.remove-image');
-        });
-
-        // Posts
-        Route::prefix('posts')->group(function() {
-            Route::view('/', 'admin::admin.pages.posts')->name('admin.posts');
-
-            Route::get('/create', 'PostController@create')->name('admin.posts.create');
-            Route::post('/create', 'PostController@store')->name('admin.posts.store');
-            Route::get('/edit/{id}', 'PostController@edit')->name('admin.posts.edit');
-            Route::post('/edit/{id}', 'PostController@update')->name('admin.posts.update');
-            Route::get('/delete/{id}', 'PostController@delete')->name('admin.posts.delete');
-            Route::post('/delete/{id}', 'PostController@destroy')->name('admin.posts.destroy');
-
-            Route::post('/remove-image/{id}', 'PostController@removeImage')->name('admin.posts.remove-image');
-        });
-
         // Settings
         Route::prefix('settings')->group(function() {
             Route::view('/', 'admin::admin.pages.settings')->name('admin.settings');
@@ -169,15 +154,14 @@ Route::namespace('Muan\Admin\Http\Controllers\Admin')->group(function() {
     // API
     AdminRoute::apiRoutes(function () {
 
-        Route::get('/pages', 'PageController@data')->name('admin.api.pages');
-        Route::get('/properties', 'PropertyController@data')->name('admin.api.properties');
-        Route::get('/groups', 'GroupController@data')->name('admin.api.groups');
         Route::get('/blocks', 'BlockController@data')->name('admin.api.blocks');
+        Route::get('/pages', 'PageController@data')->name('admin.api.pages');
+        Route::get('/categories', 'CategoryController@data')->name('admin.api.categories');
+        Route::get('/posts', 'PostController@data')->name('admin.api.posts');
         Route::get('/users', 'UserController@data')->name('admin.api.users');
         Route::get('/roles', 'RoleController@data')->name('admin.api.roles');
         Route::get('/permissions', 'PermissionController@data')->name('admin.api.permissions');
-        Route::get('/categories', 'CategoryController@data')->name('admin.api.categories');
-        Route::get('/posts', 'PostController@data')->name('admin.api.posts');
+        Route::get('/comments', 'CommentController@data')->name('admin.api.comments');
 
         // Settings
         Route::prefix('settings')->group(function () {

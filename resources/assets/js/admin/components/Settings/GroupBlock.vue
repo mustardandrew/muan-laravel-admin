@@ -1,4 +1,3 @@
-
 <template>
     <div class="group-block">
         <h2>{{ group.title }}</h2>

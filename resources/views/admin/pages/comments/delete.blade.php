@@ -1,50 +1,50 @@
 @extends('admin::admin.layouts.main')
 
-@section('title', 'Delete Property')
+@section('title', 'Delete Comment')
 
 @section('breadcrumbs')
     @php
         $breadcrumbs = [
-            route('admin.properties') => 'Properties',
-            '' => 'Delete Property'
+            route('admin.comments') => 'Comments',
+            '' => 'Delete Comment'
         ];
     @endphp
     @include('admin::admin.layouts.chunks._breadcrumbs', $breadcrumbs)
 @endsection
 
 @section('content')
-    <h1>Delete Property</h1>
+    <h1>Delete Comment</h1>
 
-    <form class="form" action="{{ route('admin.properties.destroy', ['id' => $property->id]) }}" method="POST">
+    <form class="form" action="{{ route('admin.comments.destroy', ['id' => $comment->id]) }}" method="POST">
         {{ csrf_field() }}
 
-        <p>Are you sure want to destroy property?</p>
+        <p>Are you sure want to destroy comment?</p>
 
         <div class=form__group>
             <table class="table">
                 <tr>
                     <td><strong>ID</strong></td>
-                    <td>{{ $property->id }}</td>
+                    <td>{{ $comment->id }}</td>
                 </tr>
                 <tr>
-                    <td><strong>Slug</strong></td>
-                    <td>{{ $property->dlug }}</td>
+                    <td><strong>User</strong></td>
+                    <td>{{ $comment->user->name }}</td>
                 </tr>
                 <tr>
-                    <td><strong>Title</strong></td>
-                    <td>{{ $property->title }}</td>
+                    <td><strong>Comment</strong></td>
+                    <td>{{ $comment->comment }}</td>
                 </tr>
                 <tr>
-                    <td><strong>Description</strong></td>
-                    <td>{{ $property->description }}</td>
+                    <td><strong>Approved</strong></td>
+                    <td>{{ $comment->approved ? 'Yes' : 'no' }}</td>
                 </tr>
                 <tr>
                     <td><strong>Created At</strong></td>
-                    <td>{{ $property->created_at }}</td>
+                    <td>{{ $comment->created_at }}</td>
                 </tr>
                 <tr>
                     <td><strong>Updated At</strong></td>
-                    <td>{{ $property->updated_at }}</td>
+                    <td>{{ $comment->updated_at }}</td>
                 </tr>
             </table>
         </div>
@@ -53,7 +53,7 @@
             <button type="submit" class="button button--dark mr-5">
                 Delete
             </button>
-            <a href="{{ route('admin.properties') }}" class="button">
+            <a href="{{ route('admin.comments') }}" class="button">
                 Cancel
             </a>
         </div>
