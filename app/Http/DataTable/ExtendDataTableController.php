@@ -195,6 +195,11 @@ trait ExtendDataTableController
     {
         // Get data
         $model = $this->searchPaginateAndOrder();
+
+        foreach ($model as $oneModel) {
+            $this->prepareModel($oneModel);
+        }
+
         $model = $model->toArray();
 
         // Use for change data before send
@@ -208,6 +213,16 @@ trait ExtendDataTableController
             'columns' => $this->getColumns(),
             'actions' => $this->getActions(),
         ]);
+    }
+
+    /**
+     * Prepare model
+     *
+     * @param $model
+     */
+    public function prepareModel($model)
+    {
+        //
     }
 
 }

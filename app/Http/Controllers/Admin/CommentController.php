@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Muan\Admin\Facades\FlashMessage;
 use Muan\Admin\Http\DataTable\ExtendDataTableController;
 use Muan\Admin\Http\Controllers\Controller;
+use Muan\Admin\Models\TargetSource\TargetSourceContract;
 use Muan\Comments\Models\Comment;
 
 /**
@@ -47,22 +48,22 @@ class CommentController extends Controller
             'user' => [
                 'title' => 'User',
                 'field'  => 'anchor-field',
+                'target' => '_blank'
             ],
             'comment' => [
                 'title' => 'Comments',
                 'field'  => 'string-field',
-                'style' => 'width: 40%',
+                'style' => 'width: 35%',
                 'sorted' => true,
                 'filter' => [
                     'type' => 'string-filter',
                     'placeholder' => 'Comment',
                 ],
             ],
-//            TODO: IN process
-//            'commentable' => [
-//                'title' => 'Commentable',
-//                'field'  => 'string-field',
-//            ],
+            'source' => [
+                'title' => 'Source',
+                'field'  => 'source-field',
+            ],
             'approved' => [
                 'title' => 'Approved',
                 'field'  => 'active-field',
@@ -96,9 +97,22 @@ class CommentController extends Controller
      */
     protected function prepareQuery($query)
     {
-        return $query->with('user');
-        // TODO: In process
-            //->with('commentable');
+        return $query->with('user')->with('commentable');
+    }
+
+    /**
+     * Prepare model
+     *
+     * @param $model
+     * @return string
+     */
+    public function prepareModel($model)
+    {
+        if ($model->commentable instanceof TargetSourceContract) {
+            $model->source = $model->commentable->getTargetSource();
+        }
+
+        return '';
     }
 
     /**
@@ -115,7 +129,11 @@ class CommentController extends Controller
         ];
 
         // TODO: IN process
-//        $item['commentable'] = array_merge($item['commentable'], ['ddd' => $item['commentable_type']]);
+
+//        $obj = ($item['commentable_type'])::find([$item['commentable_id']);
+//        $item['commentable'] = $obj;
+//        $item['commentable'] = [$item['commentable_id'], $item['commentable_type']];
+//        $item['commentable'] = [$item['commentable_id'], $item['commentable_type']];
 
         return $item;
     }

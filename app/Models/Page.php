@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Muan\Admin\Models\Scopes\{
     SlugScope, ActiveScope
 };
+use Muan\Admin\Models\TargetSource\TargetSourceContract;
 use Muan\Comments\Traits\Commentable;
 
 /**
@@ -13,7 +14,7 @@ use Muan\Comments\Traits\Commentable;
  *
  * @package Muan\Admin\Models
  */
-class Page extends Model
+class Page extends Model implements TargetSourceContract
 {
     use SlugScope, ActiveScope, Commentable;
 
@@ -40,6 +41,16 @@ class Page extends Model
     public function user()
     {
         return $this->belongsTo(config('auth.providers.users.model'));
+    }
+
+    /**
+     * Get target source
+     *
+     * @return string
+     */
+    public function getTargetSource(): string
+    {
+        return route('admin.pages.edit', ['id' => $this->id]);
     }
 
 }

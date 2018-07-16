@@ -12,8 +12,8 @@
 </style>
 
 <template>
-    <span>
-        <a class="link-source" :href="value">
+    <span v-if="value">
+        <a class="link-source" :href="value" target="_blank">
             Source
             <i class="fas fa-external-link-alt"></i>
         </a>

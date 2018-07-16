@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Muan\Admin\Models\Scopes\{
     SlugScope, ActiveScope
 };
+use Muan\Admin\Models\TargetSource\TargetSourceContract;
 use Muan\Comments\Traits\Commentable;
 
 /**
@@ -13,7 +14,7 @@ use Muan\Comments\Traits\Commentable;
  *
  * @package Muan\Admin\Models
  */
-class Category extends Model
+class Category extends Model implements TargetSourceContract
 {
     use SlugScope, ActiveScope, Commentable;
 
@@ -50,6 +51,16 @@ class Category extends Model
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get target source
+     *
+     * @return string
+     */
+    public function getTargetSource(): string
+    {
+        return route('admin.categories.edit', ['id' => $this->id]);
     }
 
 }
