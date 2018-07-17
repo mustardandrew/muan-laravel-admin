@@ -8,7 +8,6 @@ use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{
     CreatePageRequest, UpdatePageRequest
 };
-use Muan\Admin\Models\Page;
 use Muan\Admin\Services\UploadService;
 
 /**
@@ -27,7 +26,7 @@ class PageController extends Controller
      */
     protected function entity(): string
     {
-        return Page::class;
+        return config('admin.entities.page.model');
     }
 
     /**
@@ -137,7 +136,7 @@ class PageController extends Controller
      */
     public function store(CreatePageRequest $request, UploadService $uploadService)
     {
-        $page = Page::create($request->all());
+        $page = $this->resolveEntity()->create($request->all());
 
         // Upload image
         if ($request->hasFile('image')) {
@@ -157,7 +156,7 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        $page = Page::findOrFail($id);
+        $page = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.pages.edit', compact('page'));
     }
 
@@ -171,7 +170,8 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, UploadService $uploadService, $id)
     {
-        $page = Page::findOrFail($id);
+        $page = $this->resolveEntity()->findOrFail($id);
+
         $page->update($request->all());
 
         // Upload image
@@ -196,7 +196,7 @@ class PageController extends Controller
      */
     public function delete($id)
     {
-        $page = Page::findOrFail($id);
+        $page = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.pages.delete', compact('page'));
     }
 
@@ -209,7 +209,7 @@ class PageController extends Controller
      */
     public function destroy(UploadService $uploadService, $id)
     {
-        $page = Page::findOrFail($id);
+        $page = $this->resolveEntity()->findOrFail($id);
         $page->delete();
 
         $page->image && $uploadService->remove($page->image);
@@ -227,7 +227,7 @@ class PageController extends Controller
      */
     public function removeImage(UploadService $uploadService, $id)
     {
-        $page = Page::findOrFail($id);;
+        $page = $this->resolveEntity()->findOrFail($id);
 
         if ($page->image) {
             $uploadService->remove($page->image);

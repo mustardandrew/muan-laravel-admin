@@ -8,7 +8,6 @@ use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{
     CreateBlockRequest, UpdateBlockRequest
 };
-use Muan\Admin\Models\Block;
 
 /**
  * Class RoleController
@@ -26,7 +25,7 @@ class BlockController extends Controller
      */
     protected function entity(): string
     {
-        return Block::class;
+        return config('admin.entities.block.model');
     }
 
     /**
@@ -135,7 +134,7 @@ class BlockController extends Controller
      */
     public function store(CreateBlockRequest $request)
     {
-        $block = Block::create($request->all());
+        $block = $this->resolveEntity()->create($request->all());
         FlashMessage::notice("Block with name '{$block->name}' created successfully!");
         return redirect()->route('admin.blocks');
     }
@@ -148,7 +147,7 @@ class BlockController extends Controller
      */
     public function edit($id)
     {
-        $block = Block::findOrFail($id);
+        $block = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.blocks.edit', compact('block'));
     }
 
@@ -161,7 +160,7 @@ class BlockController extends Controller
      */
     public function update(UpdateBlockRequest $request, $id)
     {
-        $block = Block::findOrFail($id);
+        $block = $this->resolveEntity()->findOrFail($id);
         $block->update($request->all());
         FlashMessage::notice("Block with name '{$block->name}' updated successfully!");
         return redirect()->route('admin.blocks.edit', ['id' => $block->id]);
@@ -175,7 +174,7 @@ class BlockController extends Controller
      */
     public function delete($id)
     {
-        $block = Block::findOrFail($id);
+        $block = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.blocks.delete', compact('block'));
     }
 
@@ -187,12 +186,10 @@ class BlockController extends Controller
      */
     public function destroy($id)
     {
-        $block = Block::findOrFail($id);
+        $block = $this->resolveEntity()->findOrFail($id);
         $block->delete();
         FlashMessage::notice("Block with name '{$block->name}' deleted successfully!");
         return redirect()->route('admin.blocks');
     }
-
-    // TODO: is_active
 
 }

@@ -6,7 +6,6 @@ use Muan\Acl\Models\Permission;
 use Muan\Admin\Facades\FlashMessage;
 use Muan\Admin\Http\DataTable\ExtendDataTableController;
 use Muan\Admin\Http\Controllers\Controller;
-use Muan\Acl\Models\Role;
 use Muan\Admin\Http\Requests\CreateRoleRequest;
 use Muan\Admin\Http\Requests\UpdateRoleRequest;
 
@@ -26,7 +25,7 @@ class RoleController extends Controller
      */
     protected function entity(): string
     {
-        return Role::class;
+        return config('admin.entities.role.model');
     }
 
     /**
@@ -119,7 +118,7 @@ class RoleController extends Controller
      */
     public function store(CreateRoleRequest $request)
     {
-        $role = Role::create($request->all());
+        $role = $this->resolveEntity()->create($request->all());
         FlashMessage::notice("Role with name '{$role->name}' created successfully!");
         return redirect()->route('admin.roles');
     }
@@ -132,7 +131,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.roles.edit', compact('role'));
     }
 
@@ -145,7 +144,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, $id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         $role->update($request->all());
         FlashMessage::notice("Role with name '{$role->name}' updated successfully!");
         return redirect()->route('admin.roles.edit', ['id' => $role->id]);
@@ -159,7 +158,7 @@ class RoleController extends Controller
      */
     public function delete($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.roles.delete', compact('role'));
     }
 
@@ -171,7 +170,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         $role->delete();
         FlashMessage::notice("Role with name '{$role->name}' deleted successfully!");
         return redirect()->route('admin.roles');
@@ -185,7 +184,7 @@ class RoleController extends Controller
      */
     public function permissions($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         $permissions = Permission::all();
         return view('admin::admin.pages.roles.permissions', compact('role', 'permissions'));
     }
@@ -198,7 +197,7 @@ class RoleController extends Controller
      */
     public function attach($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->resolveEntity()->findOrFail($id);
         $role->permissions()->sync(request()->permissions);
         FlashMessage::notice("Role with name '{$role->name}' attached permissions!");
         return redirect()->route('admin.roles.permissions', ['id' => $id]);

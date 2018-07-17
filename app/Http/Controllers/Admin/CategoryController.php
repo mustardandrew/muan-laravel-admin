@@ -9,9 +9,6 @@ use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{
     CreateCategoryRequest, UpdateCategoryRequest
 };
-use Muan\Admin\Models\{
-    Category, Post
-};
 use Muan\Admin\Services\UploadService;
 
 /**
@@ -30,7 +27,7 @@ class CategoryController extends Controller
      */
     protected function entity(): string
     {
-        return Category::class;
+        return config('admin.entities.category.model');
     }
 
     /**
@@ -88,7 +85,7 @@ class CategoryController extends Controller
                 'filter' => [
                     'type' => 'select-filter',
                     'placeholder' => 'Parent Category',
-                    'options' => Category::where('parent_category_id', 0)->get()->mapWithKeys(function($category) {
+                    'options' => $this->resolveEntity()->where('parent_category_id', 0)->get()->mapWithKeys(function($category) {
                         return [$category->id => $category->title];
                     }),
                 ],
@@ -184,7 +181,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->resolveEntity()->get();
         return view('admin::admin.pages.categories.create', compact('categories'));
     }
 
@@ -197,7 +194,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request, UploadService $uploadService)
     {
-        $category = Category::create($request->all());
+        $category = $this->resolveEntity()->create($request->all());
 
         // Upload image
         if ($request->hasFile('image')) {
@@ -217,8 +214,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        $categories = Category::where('id', '!=', $id)->get();
+        $category = $this->resolveEntity()->findOrFail($id);
+        $categories = $this->resolveEntity()->where('id', '!=', $id)->get();
         return view('admin::admin.pages.categories.edit', compact('category', 'categories'));
     }
 
@@ -232,7 +229,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, UploadService $uploadService, $id)
     {
-        $category = Category::findOrFail($id);
+        $category = $this->resolveEntity()->findOrFail($id);
         $category->update($request->all());
 
         // Upload image
@@ -259,8 +256,8 @@ class CategoryController extends Controller
      */
     public function delete($id)
     {
-        $category = Category::findOrFail($id);
-        $categories = Category::where('id', '!=', $id)->where('id', '!=', $category->parent_category_id)->get();
+        $category = $this->resolveEntity()->findOrFail($id);
+        $categories = $this->resolveEntity()->where('id', '!=', $id)->where('id', '!=', $category->parent_category_id)->get();
         return view('admin::admin.pages.categories.delete', compact('category', 'categories'));
     }
 
@@ -274,11 +271,18 @@ class CategoryController extends Controller
      */
     public function destroy(UploadService $uploadService, Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        Post::where('category_id', $id)->update(['category_id' => $request->category_id]);
-        Category::where('parent_category_id', $id)
-            ->where('id', '!=', $request->category_id)
-            ->update(['parent_category_id' => $request->category_id]);
+        $category = $this->resolveEntity()->findOrFail($id);
+
+        // Update Posts
+        app()->make(config('admin.entities.post.model'))
+            ->where('category_id', $id)
+            ->update(['category_id' => $request->get('category_id')]);
+
+        // Update Categories
+        $this->resolveEntity()->where('parent_category_id', $id)
+            ->where('id', '!=', $request->get('category_id'))
+            ->update(['parent_category_id' => $request->get('category_id')]);
+
         $category->delete();
 
         $category->image && $uploadService->remove($category->image);
@@ -296,7 +300,7 @@ class CategoryController extends Controller
      */
     public function removeImage(UploadService $uploadService, $id)
     {
-        $category = Category::findOrFail($id);;
+        $category = $this->resolveEntity()->findOrFail($id);
 
         if ($category->image) {
             $uploadService->remove($category->image);

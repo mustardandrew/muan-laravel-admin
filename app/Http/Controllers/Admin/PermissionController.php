@@ -25,7 +25,7 @@ class PermissionController extends Controller
      */
     protected function entity(): string
     {
-        return Permission::class;
+        return config('admin.entities.permission.model');
     }
 
     /**
@@ -119,7 +119,7 @@ class PermissionController extends Controller
      */
     public function store(CreatePermissionRequest $request)
     {
-        $permission = Permission::create($request->all());
+        $permission = $this->resolveEntity()->create($request->all());
         FlashMessage::notice("Permission with name '{$permission->name}' created successfully!");
         return redirect()->route('admin.permissions');
     }
@@ -132,7 +132,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.permissions.edit', compact('permission'));
     }
 
@@ -145,7 +145,7 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, $id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = $this->resolveEntity()->findOrFail($id);
         $permission->update($request->all());
         FlashMessage::notice("Permission with name '{$permission->name}' updated successfully!");
         return redirect()->route('admin.permissions.edit', ['id' => $permission->id]);
@@ -159,7 +159,7 @@ class PermissionController extends Controller
      */
     public function delete($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.permissions.delete', compact('permission'));
     }
 
@@ -171,7 +171,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = $this->resolveEntity()->findOrFail($id);
         $permission->delete();
         FlashMessage::notice("Permission with name '{$permission->name}' deleted successfully!");
         return redirect()->route('admin.permissions');
@@ -184,7 +184,8 @@ class PermissionController extends Controller
      */
     public function mDestroy()
     {
-        Permission::whereIn('id', request()->ids)->delete();
+        $this->resolveEntity()->whereIn('id', request()->ids)->delete();
+
         return response()->json([
             'level' => 'notice',
             'message' => "Permissions with ids [" . implode(', ', request()->ids) . "] deleted successfully!",

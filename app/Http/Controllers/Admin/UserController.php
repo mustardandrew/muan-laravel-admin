@@ -2,9 +2,6 @@
 
 namespace Muan\Admin\Http\Controllers\Admin;
 
-use Muan\Acl\Models\{
-    Permission, Role
-};
 use Muan\Admin\Facades\FlashMessage;
 use Muan\Admin\Http\DataTable\ExtendDataTableController;
 use Muan\Admin\Http\Controllers\Controller;
@@ -83,7 +80,7 @@ class UserController extends Controller
                 'field'  => 'string-field',
                 'filter' => [
                     'type' => 'select-filter',
-                    'options' => Role::all()->mapWithKeys(function ($role) {
+                    'options' => app()->make( config('admin.entities.role.model') )->get()->mapWithKeys(function ($role) {
                         return [$role->id => ucfirst($role->name)];
                     })->toArray(),
                 ],
@@ -199,7 +196,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = app()->make( config('admin.entities.role.model') )->get();
         return view('admin::admin.pages.users.create', compact('roles'));
     }
 
@@ -249,7 +246,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->resolveEntity()->findOrFail($id);
-        $roles = Role::all();
+        $roles = app()->make( config('admin.entities.role.model') )->get();
 
         return view('admin::admin.pages.users.edit', compact('user', 'roles'));
     }
@@ -356,7 +353,8 @@ class UserController extends Controller
     public function permissions($id)
     {
         $user = $this->resolveEntity()->findOrFail($id);
-        $permissions = Permission::all();
+        $permissions = app()->make( config('admin.entities.permission.model') )->get();
+
         return view('admin::admin.pages.users.permissions', compact('user', 'permissions'));
     }
 

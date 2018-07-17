@@ -7,7 +7,6 @@ use Muan\Admin\Facades\FlashMessage;
 use Muan\Admin\Http\DataTable\ExtendDataTableController;
 use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Models\TargetSource\TargetSourceContract;
-use Muan\Comments\Models\Comment;
 
 /**
  * Class CommentController
@@ -25,7 +24,7 @@ class CommentController extends Controller
      */
     protected function entity(): string
     {
-        return Comment::class;
+        return config('admin.entities.comment.model');
     }
 
     /**
@@ -128,13 +127,6 @@ class CommentController extends Controller
             'text' => $item['user']['name'],
         ];
 
-        // TODO: IN process
-
-//        $obj = ($item['commentable_type'])::find([$item['commentable_id']);
-//        $item['commentable'] = $obj;
-//        $item['commentable'] = [$item['commentable_id'], $item['commentable_type']];
-//        $item['commentable'] = [$item['commentable_id'], $item['commentable_type']];
-
         return $item;
     }
 
@@ -171,7 +163,7 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.comments.edit', compact('comment'));
     }
 
@@ -184,7 +176,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = $this->resolveEntity()->findOrFail($id);
         $comment->update([
             'comment'  => $request->get('comment'),
             'approved' => $request->get('approved'),
@@ -201,7 +193,7 @@ class CommentController extends Controller
      */
     public function delete($id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.comments.delete', compact('comment'));
     }
 
@@ -213,12 +205,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = $this->resolveEntity()->findOrFail($id);
         $comment->delete();
         FlashMessage::notice("Comment with id '{$comment->id}' deleted successfully!");
         return redirect()->route('admin.comments');
     }
-
-    // TODO: approved
 
 }

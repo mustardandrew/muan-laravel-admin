@@ -8,9 +8,6 @@ use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{
     CreatePostRequest, UpdatePostRequest
 };
-use Muan\Admin\Models\{
-    Category, Post
-};
 use Muan\Admin\Services\UploadService;
 
 /**
@@ -29,7 +26,7 @@ class PostController extends Controller
      */
     protected function entity(): string
     {
-        return Post::class;
+        return config('admin.entities.post.model');
     }
 
     /**
@@ -96,9 +93,11 @@ class PostController extends Controller
                 'filter' => [
                     'type' => 'select-filter',
                     'placeholder' => 'Category',
-                    'options' => collect(['0' => 'No category'])->union(Category::all()->mapWithKeys(function($category) {
-                        return [$category->id => $category->title];
-                    })),
+                    'options' => collect(['0' => 'No category'])->union(
+                        app()->make(config('admin.entities.category.model'))->get()->mapWithKeys(function($category) {
+                            return [$category->id => $category->title];
+                        })
+                    ),
                 ],
             ],
             'updated_at' => [
@@ -190,7 +189,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = app()->make( config('admin.entities.category.model') )->get();
         return view('admin::admin.pages.posts.create', compact('categories'));
     }
 
@@ -203,7 +202,7 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request, UploadService $uploadService)
     {
-        $post = Post::create($request->all());
+        $post = $this->resolveEntity()->create($request->all());
 
         // Upload image
         if ($request->hasFile('image')) {
@@ -223,8 +222,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-        $categories = Category::all();
+        $post = $this->resolveEntity()->findOrFail($id);
+        $categories = app()->make( config('admin.entities.category.model') )->get();
         return view('admin::admin.pages.posts.edit', compact('post', 'categories'));
     }
 
@@ -238,7 +237,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, UploadService $uploadService, $id)
     {
-        $post = Post::findOrFail($id);
+        $post = $this->resolveEntity()->findOrFail($id);
         $post->update($request->all());
 
         // Upload image
@@ -263,7 +262,7 @@ class PostController extends Controller
      */
     public function delete($id)
     {
-        $post = Post::findOrFail($id);
+        $post = $this->resolveEntity()->findOrFail($id);
         return view('admin::admin.pages.posts.delete', compact('post'));
     }
 
@@ -276,7 +275,7 @@ class PostController extends Controller
      */
     public function destroy(UploadService $uploadService, $id)
     {
-        $post = Post::findOrFail($id);
+        $post = $this->resolveEntity()->findOrFail($id);
         $post->delete();
 
         $post->image && $uploadService->remove($post->image);
@@ -294,7 +293,7 @@ class PostController extends Controller
      */
     public function removeImage(UploadService $uploadService, $id)
     {
-        $post = Post::findOrFail($id);;
+        $post = $this->resolveEntity()->findOrFail($id);
 
         if ($post->image) {
             $uploadService->remove($post->image);

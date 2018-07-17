@@ -30,6 +30,43 @@ return [
     'diskname' => 'public',
 
     /**
+     * Configuration config
+     */
+    'entities' => [
+        'block' => [
+            'model' => \Muan\Admin\Models\Block::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\BlockController::class,
+        ],
+        'page' => [
+            'model' => \Muan\Admin\Models\Page::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\PageController::class,
+        ],
+        'category' => [
+            'model' => \Muan\Admin\Models\Category::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\CategoryController::class,
+        ],
+        'post' => [
+            'model' => \Muan\Admin\Models\Post::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\PostController::class,
+        ],
+        'comment' => [
+            'model' => \Muan\Comments\Models\Comment::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\CommentController::class,
+        ],
+        'user' => [
+            'controller' => \Muan\Admin\Http\Controllers\Admin\UserController::class,
+        ],
+        'role' => [
+            'model' => \Muan\Acl\Models\Role::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\RoleController::class,
+        ],
+        'permission' => [
+            'model' => \Muan\Acl\Models\Permission::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\PermissionController::class,
+        ],
+    ],
+
+    /**
      * Parameters for resize
      *
      * methods: fit, resize
@@ -41,7 +78,7 @@ return [
          */
         'user' => [
             'method' => 'fit',
-            'width' => 200,
+            'width'  => 200,
             'height' => 200,
         ],
 
@@ -50,7 +87,7 @@ return [
          */
         'page' => [
             'method' => 'fit',
-            'width' => 600,
+            'width'  => 600,
             'height' => 300,
         ],
 
@@ -59,7 +96,7 @@ return [
          */
         'category' => [
             'method' => 'resize',
-            'width' => 400,
+            'width'  => 400,
         ],
 
         /**
@@ -67,7 +104,7 @@ return [
          */
         'post' => [
             'method' => 'resize',
-            'width' => 800
+            'width'  => 800
         ],
 
     ],
