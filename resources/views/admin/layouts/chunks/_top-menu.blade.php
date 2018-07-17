@@ -12,10 +12,18 @@
     {{-- Left Menu --}}
     @php $leftMenu = config('admin.left-menu'); @endphp
 
-    @if(! empty($leftMenu))
-        <div class="top-menu__block">
 
-            <div class="menu">
+    <div class="top-menu__block">
+
+        <div class="menu">
+
+            <div class="menu__item">
+                <a class="menu__link" href="/" title="Go to site" target="_blank">
+                    To site &rarr;
+                </a>
+            </div>
+
+            @if(! empty($leftMenu))
                 @foreach ($leftMenu as $item)
                     @isset ($item['title'])
                         <div class="menu__item">
@@ -54,10 +62,12 @@
                         </div>
                     @endisset
                 @endforeach
-            </div>
 
+            @endif
         </div>
-    @endif
+
+    </div>
+
     {{-- // Left Menu --}}
 
     <div class="top-menu__space"></div>
