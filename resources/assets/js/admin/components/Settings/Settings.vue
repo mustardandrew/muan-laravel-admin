@@ -8,8 +8,14 @@
             <div :class="['item', 'item--button', {'active' : currentItem == 'add'}]" @click="clearAddGroupFormData()">
                 + Add Group
             </div>
-            <div v-if="currentItem != 'add'">
-                <button class="button button--gold mt-5 w-100" @click="saveAllProperties()">Save All</button>
+            <div v-if="!(currentItem === 'add' || showEditGroupForm)">
+                <button class="button button--gold mt-5 w-100" @click="saveAllProperties()">
+                    <span v-if="process">
+                        Process
+                        <i class="fas fa-sync fa-spin"></i>
+                    </span>
+                    <span v-else>Save All</span>
+                </button>
             </div>
         </div>
         <div class="tabs__contents">
@@ -38,6 +44,10 @@
                 required: true,
             },
             addGroupRoute: {
+                type: String,
+                required: true,
+            },
+            editGroupRoute: {
                 type: String,
                 required: true,
             },
@@ -70,6 +80,12 @@
             },
             currentItem() {
                 return this.$store.getters['settings/currentItem'];
+            },
+            showEditGroupForm() {
+                return this.$store.getters['settings/showEditGroupForm'];
+            },
+            process() {
+                return this.$store.getters['settings/process'];
             }
         },
 
@@ -83,6 +99,7 @@
                 this.$store.commit(`settings/${header.SETTINGS_SET_CONFIG_MUTATION}`, {
                     listRoute: this.listRoute,
                     addGroupRoute: this.addGroupRoute,
+                    editGroupRoute: this.editGroupRoute,
                     destroyGroupRoute: this.destroyGroupRoute,
                     addPropertyRoute: this.addPropertyRoute,
                     destroyPropertyRoute: this.destroyPropertyRoute,

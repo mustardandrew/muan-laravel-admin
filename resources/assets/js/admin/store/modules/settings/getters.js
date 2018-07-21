@@ -1,4 +1,7 @@
 const getters = {
+    process(state) {
+        return state.process;
+    },
     items(state) {
         return state.items;
     },
@@ -13,6 +16,9 @@ const getters = {
     },
     groupFormErrors(state) {
         return state.groupFormErrors;
+    },
+    showEditGroupForm(state) {
+        return state.showEditGroupForm;
     },
     showAddPropertyForm(state) {
         return state.showAddPropertyForm;

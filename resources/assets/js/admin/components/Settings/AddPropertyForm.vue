@@ -80,6 +80,9 @@
             <button type="submit" class="button button--dark mr-5">
                 Create
             </button>
+            <button type="button" class="button mr-5" @click="cancelForm()">
+                Cancel
+            </button>
         </div>
 
     </form>
@@ -103,6 +106,9 @@
         methods: {
             createProperty() {
                 this.$store.dispatch(`settings/${header.SETTINGS_FORM_PROPERTY_SEND_ACTION}`);
+            },
+            cancelForm() {
+                this.$store.commit(`settings/${header.SETTINGS_HIDE_PROPERTY_FORM_MUTATION}`);
             }
         }
     };

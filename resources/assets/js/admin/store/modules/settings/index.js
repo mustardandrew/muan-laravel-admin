@@ -8,11 +8,14 @@ const settings = {
         config: {
             listRoute: null,
             addGroupRoute: null,
+            editGroupRoute: null,
             destroyGroupRoute: null,
             addPropertyRoute: null,
             destroyPropertyRoute: null,
             saveAllPropertiesRoute: null
         },
+
+        process: false,
 
         items: [],
         currentItem: null,
@@ -28,6 +31,7 @@ const settings = {
             description: ''
         },
 
+        showEditGroupForm: false,
         showAddPropertyForm: false,
 
         propertyFormData: {

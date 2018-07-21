@@ -194,10 +194,14 @@ AdminRoute::apiRoutes(function () use (
     Route::prefix('settings')->namespace('Muan\Admin\Http\Controllers\Admin')->group(function () {
         Route::get('/', 'SettingController@index')->name('admin.api.settings');
         Route::post('/add-group', 'SettingController@storeGroup')->name('admin.api.settings.add-group');
+        Route::post('/edit-group', 'SettingController@updateGroup')->name('admin.api.settings.edit-group');
         Route::post('/destroy-group', 'SettingController@destroyGroup')->name('admin.api.settings.destroy-group');
         Route::post('/add-property', 'SettingController@storeProperty')->name('admin.api.settings.add-property');
         Route::post('/destroy-property', 'SettingController@destroyProperty')->name('admin.api.settings.destroy-property');
         Route::post('/save-all-properties', 'SettingController@saveAllProperties')->name('admin.api.settings.save-all-properties');
+
+        Route::get('/export', 'SettingController@export')->name('admin.settings.export');
+        Route::post('/import', 'SettingController@import')->name('admin.settings.import');
     });
 
 });

@@ -26,22 +26,33 @@ const mutations = {
         state.config = config;
     },
 
+    [header.SETTINGS_START_PROCESS] (state) {
+        state.process = true;
+    },
+
+    [header.SETTINGS_STOP_PROCESS] (state) {
+        state.process = false;
+    },
+
     // Set items
     [header.SETTINGS_SET_ITEMS_MUTATION] (state, items) {
         state.items = items;
         state.currentItem = items.length ? items[0] : 'add';
         state.showAddPropertyForm = false;
+        state.showEditGroupForm = false;
     },
     // Set current item
     [header.SETTINGS_SET_CURRENT_ITEM_MUTATION] (state, currentItem) {
         state.currentItem = currentItem;
         state.showAddPropertyForm = false;
+        state.showEditGroupForm = false;
     },
     // Add new item
     [header.SETTINGS_ADD_ITEM_MUTATION] (state, item) {
         state.items.push(item);
         state.currentItem = item;
         state.showAddPropertyForm = false;
+        state.showEditGroupForm = false;
     },
 
     // Remove item
@@ -49,6 +60,15 @@ const mutations = {
         _.pull(state.items, item);
         state.currentItem = state.items.length ? state.items[0] : 'add';
         state.showAddPropertyForm = false;
+        state.showEditGroupForm = false;
+    },
+
+    [header.SETTINGS_UPDATE_ITEM_MUTATION] (state, item) {
+        let index = _.findIndex(state.items, {
+            id: item.id
+        });
+        state.items[index] = item;
+        state.currentItem = state.items[index]
     },
 
     // Clear Group Form
@@ -108,6 +128,9 @@ const mutations = {
     },
 
     [header.SETTINGS_ADD_PROPERTY_MUTATION] (state, property) {
+        if (! state.currentItem.properties) {
+            state.currentItem.properties = [];
+        }
         state.currentItem.properties.push(property);
     },
 
@@ -122,6 +145,15 @@ const mutations = {
 
         state.items = _.cloneDeep(state.items);
         state.currentItem = state.items[index];
+    },
+
+
+    [header.SETTINGS_SHOW_EDIT_GROUP_FORM_MUTATION] (state) {
+        state.showEditGroupForm = true;
+    },
+
+    [header.SETTINGS_HIDE_EDIT_GROUP_FORM_MUTATION] (state) {
+        state.showEditGroupForm = false;
     }
 
 };

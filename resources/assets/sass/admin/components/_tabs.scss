@@ -93,44 +93,4 @@
       }
     }
   }
-
-  .block-actions {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  .group-block {
-    position: relative;
-
-    &:hover .block-actions {
-        display: block;
-    }
-  }
-
-
-
-
-  .action {
-    padding-left: 4px;
-    cursor: pointer;
-
-    &--destroy {
-      color: #ce5555;
-    }
-  }
-
-  .add-new-property {
-    color: #666;
-    font-size: 13px;
-    cursor: pointer;
-    display: inline-block;
-    margin-bottom: 15px;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
 }

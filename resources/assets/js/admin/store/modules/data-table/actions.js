@@ -56,7 +56,7 @@ const actions = {
     },
 
     // Set per page
-    [header.DATA_TABLE_SET_PER_PAGE_ACTION] ({commit, dispatch, state}, per_page) {
+    [header.DATA_TABLE_SET_PER_PAGE_ACTION] ({commit, dispatch, state}, perPage) {
         let oldPerPage = state.query.per_page;
         commit(header.DATA_TABLE_SET_PER_PAGE_MUTATION, perPage);
         if (oldPerPage !== state.query.per_page) {

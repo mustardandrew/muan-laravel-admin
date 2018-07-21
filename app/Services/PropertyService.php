@@ -39,9 +39,10 @@ class PropertyService
      * Get value
      *
      * @param string $key
+     * @param mixed $default
      * @return mixed
      */
-    public function get(string $key)
+    public function get(string $key, $default = null)
     {
         if (! isset(self::$properties[$key])) {
             self::$properties[$key] = $this->getProperty($key);
@@ -51,7 +52,7 @@ class PropertyService
             return self::$properties[$key]->value;
         }
 
-        return self::$properties[$key];
+        return self::$properties[$key] ? self::$properties[$key] : $default;
     }
 
     /**

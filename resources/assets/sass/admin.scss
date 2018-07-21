@@ -6,9 +6,9 @@
 @import "admin/fonts";
 
 // Font awesome
-@import "admin/font-awesome/fa-solid";
-@import "admin/font-awesome/fa-regular";
-@import "admin/font-awesome/fa-brands";
+@import "admin/font-awesome/solid";
+@import "admin/font-awesome/regular";
+@import "admin/font-awesome/brands";
 @import "admin/font-awesome/fontawesome";
 
 // Variables
@@ -32,6 +32,7 @@
 @import "admin/components/block-info";
 @import "admin/components/tabs";
 @import "admin/components/upload-image";
+@import "admin/components/vue-components";
 
 // Pages
 @import "admin/pages/profile";

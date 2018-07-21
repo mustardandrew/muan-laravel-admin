@@ -1,0 +1,107 @@
+
+/* Settings */
+
+.tabs {
+  .block-actions {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .group-block,
+  .property-block {
+    position: relative;
+
+    &:hover > .block-actions {
+      display: block;
+    }
+  }
+
+
+  .action {
+    padding-left: 4px;
+    cursor: pointer;
+
+    &--destroy {
+      color: #f3a4a4;
+    }
+
+    &--edit {
+      color: #85b385;
+      font-size: 14px;
+    }
+  }
+
+  .add-new-property {
+    color: #666;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+
+  .property-slug,
+  .group-slug {
+    font-size: 12px;
+    position: relative;
+    color: #666;
+    top: -2px;
+  }
+  .group-description,
+  .property-description {
+    background-color: #f5f5dc;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+    border-radius: 4px;
+  }
+}
+
+.settings-tools {
+  position: absolute;
+  display: inline-block;
+  right: 20px;
+  top: 20px;
+
+  &__button {
+    display: inline-block;
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #525e64;
+    color: #fff;
+    text-decoration: none;
+
+    label {
+      cursor: pointer;
+    }
+
+    i {
+      font-size: 12px;
+    }
+
+    &:hover {
+      background-color: #2b3643;
+    }
+  }
+
+  .upload_json {
+    height: 0.1px; width: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+
+
+
