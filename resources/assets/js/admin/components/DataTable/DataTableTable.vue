@@ -37,7 +37,7 @@
                 <tr class="filters">
 
                     <td v-if="data.actions.tools">
-                        
+
                     </td>
 
                     <td v-for="(column, name) in data.columns">
