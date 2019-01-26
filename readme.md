@@ -8,7 +8,7 @@ Maun Laravel Admin package is a PHP package for Laravel Framework. Used for mani
 
 ## Requirements
 
-- "php": ">=7.0",
+- "php": ">=7.1",
 - "muan/laravel-acl": "^1.1"
 - "intervention/image": "^2.4"
 
@@ -17,7 +17,7 @@ Maun Laravel Admin package is a PHP package for Laravel Framework. Used for mani
 1) Type next command in your terminal:
 
 ```bash
-composer require muan/laravel-acl
+composer require muan/laravel-admin
 ```
 
 2) Add the service provider to your config/app.php file in section providers:
@@ -43,6 +43,11 @@ use Muan\Comments\Traits\CanComment;
 class User extends Authenticatable
 {
     use HasPermissionsTrait, HasRolesTrait, AdminExtendUser, CanComment;
+    
+    /**
+     * Attach base role
+     */
+    public $baseRole = 'user';
     
     // ...
 }
