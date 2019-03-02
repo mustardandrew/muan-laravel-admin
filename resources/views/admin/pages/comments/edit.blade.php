@@ -24,12 +24,15 @@
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="comment">Comment</label>
-                        <textarea name="comment"
-                                  class="control__field"
-                                  id="comment"
-                                  placeholder="Input comment"
-                                  cols="30"
-                                  rows="10">{{ $comment->comment }}</textarea>
+
+                        <code-mirror-wrapper
+                            class="vue-wrapper"
+                            id="comment"
+                            name="comment"
+                            placeholder="Input comment"
+                            value="{{ $comment->comment }}">
+                        </code-mirror-wrapper>
+
                         @if ($errors->has('comment'))
                             <span class="control__help control__help--error">
                                 {{ $errors->first('comment') }}

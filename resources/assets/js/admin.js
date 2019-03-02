@@ -9,11 +9,13 @@ import PageTypeWrapper from './admin/components/PageType/PageTypeWrapper';
 import DataTableWrapper from './admin/components/DataTable/DataTableWrapper';
 import Settings from './admin/components/Settings/Settings';
 import UploadImage from './admin/components/UploadImage';
+import CodeMirrorWrapper from './admin/components/CodeMirrorWrapper';
 
 Vue.component('page-type-wrapper', PageTypeWrapper);
 Vue.component('data-table-wrapper', DataTableWrapper);
 Vue.component('settings', Settings);
 Vue.component('upload-image', UploadImage);
+Vue.component('code-mirror-wrapper', CodeMirrorWrapper);
 
 let elements = document.getElementsByClassName("vue-wrapper");
 

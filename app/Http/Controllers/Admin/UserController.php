@@ -121,8 +121,12 @@ class UserController extends Controller
         }
         $item['roles'] = implode(', ', $item['roles']);
 
+        if (! preg_match('/^http/', $avatar = $item['avatar'])) {
+            $avatar = $avatar ? Upload::url($avatar) : Gavatar::url($avatar);
+        }
+
         $item['avatar'] = [
-            'src' => $item['avatar'] ? Upload::url($item['avatar']) : Gavatar::url($item['email']),
+            'src' => $avatar,
             'style' => 'width: 48px; height: 48px; border-radius: 50%;',
         ];
 

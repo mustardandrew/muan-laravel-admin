@@ -14,8 +14,8 @@ return [
      * Logo
      */
     'logo' => [
-        'first'  => 'MU',
-        'second' => 'AN',
+        'first'  => 'Admin',
+        'second' => 'Panel',
 
         'title' => 'Dashboard',
         'route' => 'admin.dashboard'

@@ -60,24 +60,28 @@
                 </div>
 
                 <div class=form__group>
-                    <upload-image class="vue-wrapper"
-                                  title="Choose Image"
-                                  name="image"
-                                  remove-route="{{ route('admin.pages.remove-image', ['id' => $page->id]) }}"
-                                  source="{{ Upload::url($page->image) }}"
-                                  error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
+                    <upload-image
+                        class="vue-wrapper"
+                        title="Choose Image"
+                        name="image"
+                        remove-route="{{ route('admin.pages.remove-image', ['id' => $page->id]) }}"
+                        source="{{ Upload::url($page->image) }}"
+                        error="{{ $errors->has('image') ? $errors->first('image') : '' }}">
                     </upload-image>
                 </div>
 
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="description">Description</label>
-                        <textarea name="description"
-                                  class="control__field"
-                                  id="description"
-                                  placeholder="Input description"
-                                  cols="30"
-                                  rows="15">{{ $page->description }}</textarea>
+
+                        <code-mirror-wrapper
+                            class="vue-wrapper"
+                            id="description"
+                            name="description"
+                            placeholder="Input description"
+                            value="{{ $page->description }}">
+                        </code-mirror-wrapper>
+
                         @if ($errors->has('description'))
                             <span class="control__help control__help--error">
                                 {{ $errors->first('description') }}

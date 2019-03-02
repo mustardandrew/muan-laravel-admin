@@ -70,12 +70,15 @@
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="description">Description</label>
-                        <textarea name="description"
-                                  class="control__field"
-                                  id="description"
-                                  placeholder="Input description"
-                                  cols="30"
-                                  rows="15">{{ old('description') }}</textarea>
+
+                        <code-mirror-wrapper
+                            class="vue-wrapper"
+                            id="description"
+                            name="description"
+                            placeholder="Input description"
+                            value="{{ old('description') }}">
+                        </code-mirror-wrapper>
+
                         @if ($errors->has('description'))
                             <span class="control__help control__help--error">
                                 {{ $errors->first('description') }}

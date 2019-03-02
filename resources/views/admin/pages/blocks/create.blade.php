@@ -41,12 +41,15 @@
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="value">Value</label>
-                        <textarea name="value"
-                                  class="control__field"
-                                  id="value"
-                                  placeholder="Input value"
-                                  cols="30"
-                                  rows="10">{{ old('value') }}</textarea>
+
+                        <code-mirror-wrapper
+                            class="vue-wrapper"
+                            id="value"
+                            name="value"
+                            placeholder="Input value"
+                            value="{{ old('value') }}">
+                        </code-mirror-wrapper>
+
                         @if ($errors->has('value'))
                             <span class="control__help control__help--error">
                                 {{ $errors->first('value') }}

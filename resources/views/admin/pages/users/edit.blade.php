@@ -99,12 +99,15 @@
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="about">About</label>
-                        <textarea name="about"
-                                  class="control__field"
-                                  id="about"
-                                  placeholder="Input about"
-                                  cols="30"
-                                  rows="10">{{ $user->about }}</textarea>
+
+                        <code-mirror-wrapper
+                            class="vue-wrapper"
+                            id="about"
+                            name="about"
+                            placeholder="Input about"
+                            value="{{ $user->about }}">
+                        </code-mirror-wrapper>
+
                         @if ($errors->has('about'))
                             <span class="control__help control__help--error">
                                 {{ $errors->first('about') }}

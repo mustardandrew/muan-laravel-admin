@@ -209,8 +209,6 @@ AdminRoute::apiRoutes(function () use (
 AdminRoute::routes(function() {
 
     // Error 404
-    Route::fallback(function() {
-        return response()->view('admin::admin.errors.404', [], 404);
-    });
+    Route::fallback('Muan\Admin\Http\Controllers\Admin\FallbackController@index');
 
 });

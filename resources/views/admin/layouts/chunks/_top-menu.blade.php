@@ -19,7 +19,7 @@
 
             <div class="menu__item">
                 <a class="menu__link" href="/" title="Go to site" target="_blank">
-                    To site &rarr;
+                    SITE
                 </a>
             </div>
 

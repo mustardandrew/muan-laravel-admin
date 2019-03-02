@@ -19,7 +19,7 @@ class UpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('sex', ['unknown', 'male', 'female'])->nullable()->default('unknown');
-            $table->timestamp('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->text('about')->nullable();
             $table->string('avatar')->nullable();
         });
