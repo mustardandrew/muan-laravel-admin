@@ -3,6 +3,8 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Muan\Admin\Models\Scopes\{
     SlugScope, ActiveScope
 };
@@ -13,6 +15,17 @@ use Muan\Comments\Traits\Commentable;
  * Class Category
  *
  * @package Muan\Admin\Models
+ *
+ * @property int $id
+ * @property int $parent_category_id
+ * @property string $slug
+ * @property string $title
+ * @property string $description
+ * @property bool $is_active
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ * @property string $meta_robots
  */
 class Category extends Model implements TargetSourceContract
 {
@@ -36,9 +49,9 @@ class Category extends Model implements TargetSourceContract
     /**
      * Relation to category
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function category()
+    public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_category_id', 'id');
     }
@@ -46,9 +59,9 @@ class Category extends Model implements TargetSourceContract
     /**
      * Relation to posts
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function posts()
+    public function posts() : HasMany
     {
         return $this->hasMany(Post::class);
     }

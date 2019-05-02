@@ -2,9 +2,8 @@
 
 namespace Muan\Admin\Models\Traits;
 
-use Muan\Admin\Models\{
-    Page, Category, Post
-};
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Muan\Admin\Models\{Page, Post};
 
 /**
  * AdminExtendUser
@@ -17,9 +16,9 @@ trait AdminExtendUser
     /**
      * Relation to pages
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function pages()
+    public function pages() : HasMany
     {
         return $this->hasMany(Page::class);
     }
@@ -27,9 +26,9 @@ trait AdminExtendUser
     /**
      * Relation to posts
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function posts()
+    public function posts() : HasMany
     {
         return $this->hasMany(Post::class);
     }

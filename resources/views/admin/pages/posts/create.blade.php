@@ -87,6 +87,14 @@
                     </div>
                 </div>
 
+                <div class="form__group">
+                    <div class="control">
+                        <label class="control__label" for="category_id">Tags</label>
+
+                        <multi-select class="vue-wrapper"></multi-select>
+                    </div>
+                </div>
+
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="description">Description</label>

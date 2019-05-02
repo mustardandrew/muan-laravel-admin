@@ -3,6 +3,7 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Muan\Admin\Models\Scopes\{
     SlugScope, ActiveScope
 };
@@ -13,6 +14,17 @@ use Muan\Comments\Traits\Commentable;
  * Class Page
  *
  * @package Muan\Admin\Models
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $slug
+ * @property string $title
+ * @property string $description
+ * @property bool $is_active
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ * @property string $meta_robots
  */
 class Page extends Model implements TargetSourceContract
 {
@@ -36,9 +48,9 @@ class Page extends Model implements TargetSourceContract
     /**
      * Relation to user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }

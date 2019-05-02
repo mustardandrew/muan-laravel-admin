@@ -3,12 +3,21 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Muan\Admin\Models\Scopes\SlugScope;
 
 /**
  * Class Property
  *
  * @package Muan\Admin\Models
+ *
+ * @property int $id
+ * @property int $group_id
+ * @property string $slug
+ * @property string $title
+ * @property string $description
+ * @property string $type
+ * @property string $value
  */
 class Property extends Model
 {
@@ -29,9 +38,9 @@ class Property extends Model
     /**
      * Relation to group
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function group()
+    public function group() : BelongsTo
     {
         return $this->belongsTo(Group::class);
     }

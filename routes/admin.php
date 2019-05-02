@@ -8,6 +8,7 @@ $blockController      = config('admin.entities.block.controller');
 $pageController       = config('admin.entities.page.controller');
 $categoryController   = config('admin.entities.category.controller');
 $postController       = config('admin.entities.post.controller');
+$tagController        = config('admin.entities.tag.controller');
 $commentController    = config('admin.entities.comment.controller');
 $userController       = config('admin.entities.user.controller');
 $roleController       = config('admin.entities.role.controller');
@@ -31,6 +32,7 @@ AdminRoute::authRoutes(function() use (
     $pageController,
     $categoryController,
     $postController,
+    $tagController,
     $commentController,
     $userController,
     $roleController,
@@ -92,6 +94,18 @@ AdminRoute::authRoutes(function() use (
         Route::post('/delete/{id}', "{$postController}@destroy")->name('admin.posts.destroy');
 
         Route::post('/remove-image/{id}', "{$postController}@removeImage")->name('admin.posts.remove-image');
+    });
+
+    // Tags
+    Route::prefix('tags')->group(function () use ($tagController) {
+        Route::view('/', 'admin::admin.pages.tags')->name('admin.tags');
+
+        Route::view('/create', "admin::admin.pages.tags.create")->name('admin.tags.create');
+        Route::post('/create', "{$tagController}@store")->name('admin.tags.store');
+        Route::get('/edit/{id}', "{$tagController}@edit")->name('admin.tags.edit');
+        Route::post('/edit/{id}', "{$tagController}@update")->name('admin.tags.update');
+        Route::get('/delete/{id}', "{$tagController}@delete")->name('admin.tags.delete');
+        Route::post('/delete/{id}', "{$tagController}@destroy")->name('admin.tags.destroy');
     });
 
     // Comments
@@ -175,6 +189,7 @@ AdminRoute::apiRoutes(function () use (
     $pageController,
     $categoryController,
     $postController,
+    $tagController,
     $commentController,
     $userController,
     $roleController,
@@ -185,6 +200,7 @@ AdminRoute::apiRoutes(function () use (
     Route::get('/pages', "{$pageController}@data")->name('admin.api.pages');
     Route::get('/categories', "{$categoryController}@data")->name('admin.api.categories');
     Route::get('/posts', "{$postController}@data")->name('admin.api.posts');
+    Route::get('/tags', "{$tagController}@data")->name('admin.api.tags');
     Route::get('/comments', "{$commentController}@data")->name('admin.api.comments');
     Route::get('/users', "{$userController}@data")->name('admin.api.users');
     Route::get('/roles', "{$roleController}@data")->name('admin.api.roles');

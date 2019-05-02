@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
  * ActiveScope
  *
  * @package Muan\Admin\Models\Scopes
+ *
+ * @method static Builder isActive()
+ * @method static Builder isNotActive()
  */
 trait ActiveScope
 {
@@ -16,20 +19,22 @@ trait ActiveScope
      * Published
      *
      * @param Builder $builder
+     * @return Builder
      */
-    public function scopeIsActive(Builder $builder)
+    public function scopeIsActive(Builder $builder) : Builder
     {
-        $builder->where('active', true);
+        return $builder->where('is_active', true);
     }
 
     /**
      * Not published
      *
      * @param Builder $builder
+     * @return Builder
      */
-    public function scopeIsNotActive(Builder $builder)
+    public function scopeIsNotActive(Builder $builder) : Builder
     {
-        $builder->where('active', false);
+        return $builder->where('is_active', false);
     }
 
 }

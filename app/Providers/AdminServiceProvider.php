@@ -3,9 +3,7 @@
 namespace Muan\Admin\Providers;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\{
-    ServiceProvider, Facades\Route, Facades\View
-};
+use Illuminate\Support\ServiceProvider;
 use Muan\Admin\Console\Commands\InstallCommand;
 use Muan\Admin\Console\Commands\UserAddCommand;
 use Muan\Admin\Facades\{
@@ -14,9 +12,9 @@ use Muan\Admin\Facades\{
 use Muan\Admin\Http\Middleware\{
     RedirectIfAuthenticated, RedirectToAuthIfNotAdmin
 };
-use Muan\Admin\Http\Composes\{
-    DashboardCompose
-};
+use Muan\Admin\Http\Composes\DashboardCompose;
+use Route;
+use View;
 
 /**
  * Class AdminServiceProvider

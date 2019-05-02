@@ -2,9 +2,7 @@
 
 namespace Muan\Admin\Services;
 
-use Muan\Admin\Models\{
-    Property, Group
-};
+use Muan\Admin\Models\{Property, Group};
 
 /**
  * Class PropertyService
@@ -76,7 +74,7 @@ class PropertyService
      * Get Property
      *
      * @param string $key
-     * @return mixed
+     * @return Property|null
      */
     public function getProperty(string $key)
     {
@@ -84,8 +82,7 @@ class PropertyService
             return self::$properties[$key];
         }
 
-        self::$properties[$key] = Property::where('slug', $key)
-            ->first();
+        self::$properties[$key] = Property::slug($key)->first();
 
         return self::$properties[$key];
     }
@@ -98,7 +95,7 @@ class PropertyService
      */
     public function getGroup(string $key)
     {
-        return Group::whereSlug($key)->first();
+        return Group::slug($key)->first();
     }
 
 }

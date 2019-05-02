@@ -2,6 +2,7 @@
 
 namespace Muan\Admin\Services;
 
+use Illuminate\Database\Eloquent\Collection;
 use Muan\Admin\Models\Block;
 
 /**
@@ -15,9 +16,23 @@ class BlockService
     /**
      * Blocks
      *
-     * @var array
+     * @var Collection
      */
-    static protected $blocks = [];
+    static protected $blocks;
+
+    /**
+     * Get blocks
+     *
+     * @return Collection
+     */
+    private function getBlocks() : Collection
+    {
+        if (self::$blocks === null) {
+            self::$blocks = Block::isActive()->get();
+        }
+
+        return self::$blocks;
+    }
 
     /**
      * Get value
@@ -27,15 +42,11 @@ class BlockService
      */
     public function get(string $key)
     {
-        if (! isset(self::$blocks[$key])) {
-            self::$blocks[$key] = $this->getBlock($key);
+        if ($block = $this->getBlock($key)) {
+            return $block->value;
         }
 
-        if (isset(self::$blocks[$key]) && self::$blocks[$key] instanceof Block) {
-            return self::$blocks[$key]->value;
-        }
-
-        return self::$blocks[$key];
+        return null;
     }
 
     /**
@@ -46,15 +57,9 @@ class BlockService
      */
     public function getBlock(string $key)
     {
-        if (! empty(self::$blocks[$key])) {
-            return self::$blocks[$key];
-        }
-
-        self::$blocks[$key] = Block::where('slug', $key)
-            ->where('is_active', true)
-            ->first();
-
-        return self::$blocks[$key];
+        return $this->getBlocks()->filter(function (Block $block) use ($key) {
+            return $block->slug === $key;
+        })->first();
     }
 
 }

@@ -8,18 +8,20 @@ use Illuminate\Database\Eloquent\Builder;
  * SlugScope
  *
  * @package Muan\Admin\Models\Scopes
+ *
+ * @method static Builder slug(string $slug)
  */
 trait SlugScope
 {
     /**
-     * Apply the scope to a given Eloquent query builder.
+     * Find by slug
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param Builder $builder
      * @param string $slug
-     * @return void
+     * @return Builder
      */
-    public function scopeSlug(Builder $builder, string $slug)
+    public function scopeSlug(Builder $builder, string $slug) : Builder
     {
-        $builder->where('slug', $slug);
+        return $builder->where('slug', $slug);
     }
 }

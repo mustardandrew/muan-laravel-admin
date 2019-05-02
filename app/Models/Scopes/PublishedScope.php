@@ -2,12 +2,16 @@
 
 namespace Muan\Admin\Models\Scopes;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * PublishedScope
  *
  * @package Muan\Admin\Models\Scopes
+ *
+ * @method static Builder published()
+ * @method static Builder notPublished()
  */
 trait PublishedScope
 {
@@ -16,10 +20,11 @@ trait PublishedScope
      * Published
      *
      * @param Builder $builder
+     * @return Builder
      */
-    public function scopePublished(Builder $builder)
+    public function scopePublished(Builder $builder) : Builder
     {
-        $builder->where('active', true)->where(function($query) {
+        return $builder->where('active', true)->where(function(Builder $query) {
             $query->whereNull('posted_at');
             $query->orWhere('posted_at', '<=', new Carbon('now'));
         });
@@ -29,10 +34,12 @@ trait PublishedScope
      * Not published
      *
      * @param Builder $builder
+     * @return Builder
      */
-    public function scopeNotPublished(Builder $builder)
+    public function scopeNotPublished(Builder $builder) : Builder
     {
-        $builder->where('active', false)->orWhere('posted_at', '>=', new Carbon('now'));
+        return $builder->where('active', false)
+            ->orWhere('posted_at', '>=', new Carbon('now'));
     }
 
 }

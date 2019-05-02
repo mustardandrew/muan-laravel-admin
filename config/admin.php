@@ -49,6 +49,10 @@ return [
             'model' => \Muan\Admin\Models\Post::class,
             'controller' => \Muan\Admin\Http\Controllers\Admin\PostController::class,
         ],
+        'tag' => [
+            'model' => \Muan\Tags\Models\Tag::class,
+            'controller' => \Muan\Admin\Http\Controllers\Admin\TagController::class,
+        ],
         'comment' => [
             'model' => \Muan\Comments\Models\Comment::class,
             'controller' => \Muan\Admin\Http\Controllers\Admin\CommentController::class,
@@ -135,6 +139,11 @@ return [
                     'title' => 'Posts',
                     'icon'  => 'fas fa-file-code',
                     'route' => 'admin.posts',
+                ],
+                [
+                    'title' => 'Tags',
+                    'icon'  => 'fas fa-tags',
+                    'route' => 'admin.tags',
                 ],
                 [
                     'title' => 'Comments',

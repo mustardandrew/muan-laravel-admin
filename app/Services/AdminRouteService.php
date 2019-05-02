@@ -2,7 +2,8 @@
 
 namespace Muan\Admin\Services;
 
-use Illuminate\Support\Facades\Route;
+use Route;
+use Closure;
 
 /**
  * Class AdminRouteService
@@ -15,9 +16,9 @@ class AdminRouteService
     /**
      * Prefix for admin panel
      *
-     * @return \Illuminate\Config\Repository|mixed
+     * @return string
      */
-    public function prefix()
+    public function prefix() : string
     {
         return config('admin.slug', 'admin');
     }
@@ -25,9 +26,9 @@ class AdminRouteService
     /**
      * Admin wrapper
      *
-     * @param \Closure $closure
+     * @param Closure $closure
      */
-    public function routes(\Closure $closure)
+    public function routes(Closure $closure)
     {
         Route::prefix('/' . $this->prefix())
             ->middleware('web')
@@ -37,9 +38,9 @@ class AdminRouteService
     /**
      * Auth routes
      *
-     * @param \Closure $closure
+     * @param Closure $closure
      */
-    public function authRoutes(\Closure $closure)
+    public function authRoutes(Closure $closure)
     {
         $this->routes(function() use (&$closure) {
             Route::middleware('admin')->group($closure);
@@ -49,9 +50,9 @@ class AdminRouteService
     /**
      * Api routes
      *
-     * @param \Closure $closure
+     * @param Closure $closure
      */
-    public function apiRoutes(\Closure $closure)
+    public function apiRoutes(Closure $closure)
     {
         $this->authRoutes(function() use (&$closure) {
             Route::prefix('api')->group($closure);

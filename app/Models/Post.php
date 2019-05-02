@@ -2,10 +2,10 @@
 
 namespace Muan\Admin\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Muan\Tags\Traits\Taggable;
 use Illuminate\Database\Eloquent\Model;
-use Muan\Admin\Models\Scopes\{
-    SlugScope, PublishedScope, ActiveScope
-};
+use Muan\Admin\Models\Scopes\{SlugScope, PublishedScope, ActiveScope};
 use Muan\Admin\Models\TargetSource\TargetSourceContract;
 use Muan\Comments\Traits\Commentable;
 
@@ -13,10 +13,22 @@ use Muan\Comments\Traits\Commentable;
  * Class Post
  *
  * @package Muan\Admin\Models
+ *
+ * @property int $id
+ * @property int $category_id
+ * @property int $user_id
+ * @property string $slug
+ * @property string $title
+ * @property string $description
+ * @property bool $is_active
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ * @property string $meta_robots
  */
 class Post extends Model implements TargetSourceContract
 {
-    use SlugScope, PublishedScope, ActiveScope, Commentable;
+    use SlugScope, PublishedScope, ActiveScope, Commentable, Taggable;
 
     /**
      * @var array
@@ -45,9 +57,9 @@ class Post extends Model implements TargetSourceContract
     /**
      * Relation to category
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function category()
+    public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
@@ -55,9 +67,9 @@ class Post extends Model implements TargetSourceContract
     /**
      * Relation to user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }

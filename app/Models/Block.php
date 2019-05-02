@@ -12,6 +12,12 @@ use Muan\Comments\Traits\Commentable;
  * Class Block
  *
  * @package Muan\Admin\Models
+ *
+ * @property string $slug
+ * @property string $title
+ * @property string $description
+ * @property string $value
+ * @property bool $is_active
  */
 class Block extends Model
 {

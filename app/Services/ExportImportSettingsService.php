@@ -2,9 +2,7 @@
 
 namespace Muan\Admin\Services;
 
-use Muan\Admin\Models\{
-    Group, Property
-};
+use Muan\Admin\Models\{Group, Property};
 
 /**
  * Class ExportImportSettingsService
@@ -61,7 +59,7 @@ class ExportImportSettingsService
         foreach ($data as &$groupItem) {
             $groupItem = (array) $groupItem;
 
-            if (! $group = Group::whereSlug($groupItem['slug'])->first()) {
+            if (! $group = Group::slug($groupItem['slug'])->first()) {
                 $group = Group::create($groupItem);
             }
 
@@ -72,7 +70,7 @@ class ExportImportSettingsService
             foreach ($groupItem['properties'] as &$propertyItem) {
                 $propertyItem = (array) $propertyItem;
 
-                if (! Property::whereSlug($propertyItem['slug'])->first()) {
+                if (! Property::slug($propertyItem['slug'])->first()) {
                     $group->properties()->create($propertyItem);
                 }
             }

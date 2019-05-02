@@ -3,12 +3,18 @@
 namespace Muan\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Muan\Admin\Models\Scopes\SlugScope;
 
 /**
  * Class Group
  *
  * @package Muan\Admin\Models
+ *
+ * @property int $id
+ * @property string $slug
+ * @property string $title
+ * @property string $description
  */
 class Group extends Model
 {
@@ -36,9 +42,9 @@ class Group extends Model
     /**
      * Relation to properties
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function properties()
+    public function properties() : HasMany
     {
         return $this->hasMany(Property::class);
     }
