@@ -33,6 +33,10 @@ class CreatePostRequest extends FormRequest
             $this->merge(['slug' => str_slug($this->input('title', ''))]);
         }
 
+        if (! $this->input('tags')) {
+            $this->merge(['tags' => []]);
+        }
+
         $this->merge([
             'user_id' => auth()->id(),
             'is_active' => $this->input('is_active', 0),
@@ -50,6 +54,7 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'slug' => 'required|min:3|max:255|unique:posts',
+            'tags' => 'array',
             'category_id' => 'required|integer',
             'title' => 'required|min:3|max:255',
             'meta_title' => 'max:255',

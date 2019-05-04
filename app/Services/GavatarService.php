@@ -21,7 +21,7 @@ class GavatarService
     {
         $hashEmail = md5(strtolower($email));
 
-        return "https://secure.gravatar.com/avatar/{$hashEmail}?d=mm&s=$size";
+        return "https://secure.gravatar.com/avatar/{$hashEmail}?d=mm&s={$size}";
     }
 
 }

@@ -21,6 +21,10 @@ class UpdatePostRequest extends CreatePostRequest
             $this->merge(['slug' => str_slug($this->input('title', ''))]);
         }
 
+        if (! $this->input('tags')) {
+            $this->merge(['tags' => []]);
+        }
+
         $this->merge([
             'user_id' => auth()->id(),
             'is_active' => $this->input('is_active', 0),
@@ -39,6 +43,7 @@ class UpdatePostRequest extends CreatePostRequest
         return [
             'slug' => 'required|min:3|max:255|unique:posts,slug,' . $this->id,
             'category_id' => 'required|integer',
+            'tags' => 'required|array',
             'title' => 'required|min:3|max:255',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255',

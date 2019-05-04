@@ -206,6 +206,8 @@ AdminRoute::apiRoutes(function () use (
     Route::get('/roles', "{$roleController}@data")->name('admin.api.roles');
     Route::get('/permissions', "{$permissionController}@data")->name('admin.api.permissions');
 
+    Route::get('/tags/multi-select', "{$tagController}@multiSelect")->name('admin.api.tags.multiselect');
+
     // Settings
     Route::prefix('settings')->namespace('Muan\Admin\Http\Controllers\Admin')->group(function () {
         Route::get('/', 'SettingController@index')->name('admin.api.settings');

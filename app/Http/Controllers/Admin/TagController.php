@@ -2,10 +2,14 @@
 
 namespace Muan\Admin\Http\Controllers\Admin;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Muan\Admin\Facades\FlashMessage;
 use Muan\Admin\Http\DataTable\ExtendDataTableController;
 use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{CreateTagRequest, UpdateTagRequest};
+use Muan\Admin\Http\Resources\TagResource;
+use Muan\Admin\Services\TagService;
 
 /**
  * Class RoleController
@@ -175,6 +179,26 @@ class TagController extends Controller
         $tag->delete();
         FlashMessage::notice("Block with name '{$tag->title}' deleted successfully!");
         return redirect()->route('admin.tags');
+    }
+
+    /**
+     * Return tags
+     *
+     * @param Request $request
+     * @param TagService $tagService
+     * @return JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function multiSelect(Request $request, TagService $tagService)
+    {
+        $query = trim($request->input('q', ''));
+
+        if (empty($query)) {
+            return new JsonResponse([]);
+        }
+
+        $tags = $tagService->findTags($query);
+
+        return TagResource::collection($tags);
     }
 
 }

@@ -1,234 +1,129 @@
 <template>
     <div>
 
-        <div class="multi-select">
-            <div class="item" v-for="item in selectedItems">
-					<span class="item__title">{{item.title}}</span>
-					<span class="item__close" v-on:click.prevent="closeItem(item)">
-						<i class="fas fa-times"></i>
-					</span>
-            </div>
-            <input type="text"
-                   v-on:keyup.prevent="keyUp"
-                   v-on:key="keyDown"
-                   v-on:keydown.enter.prevent="selectItem"
-                   v-on:keyup.delete.prevent="deleteLastItem"
-                   v-model="inputSelect" />
-        </div>
+        <multiselect v-model="selectedItems"
+                     id="ajax"
+                     label="name"
+                     track-by="code"
+                     placeholder="Type to search"
+                     open-direction="bottom"
+                     :options="items"
+                     :multiple="true"
+                     :searchable="true"
+                     :loading="isLoading"
+                     :internal-search="false"
+                     :clear-on-select="true"
+                     :close-on-select="false"
+                     :options-limit="300"
+                     :limit="10"
+                     :limit-text="limitText"
+                     :max-height="600"
+                     :show-no-results="false"
+                     :hide-selected="true"
+                     @search-change="asyncFind">
 
-        <div class="multi-autocomplete-wrapper" v-if="showAutocomplate">
-            <div class="multi-autocomplete">
-                <div v-for="item in findedItems"
-                     :class="{'item': true,'item-selected': currentSelected === item}"
-                     @mouseover="overItem(item)"
-                     @click="clickItem(item)">
-                    {{item.title}}
+            <template slot="tag" slot-scope="{ option, remove }">
+                <span class="multiselect__tag">
+                    <span>{{ option.title }}</span>
+                    <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
+                </span>
+            </template>
+
+            <template slot="option" slot-scope="props">
+                <div class="option__desc"><span class="option__title">{{ props.option.title }}</span></div>
+            </template>
+
+            <template slot="clear" slot-scope="props">
+                <div class="multiselect__clear"
+                     v-if="selectedItems && selectedItems.length"
+                     @mousedown.prevent.stop="clearAll(props.search)">
                 </div>
-            </div>
-        </div>
+            </template>
+
+        </multiselect>
+
+        <select style="display: none;" multiple :name="name" :id="name">
+            <option v-for="item in selectedItems" :value="item.code" selected>
+                {{ item.title }}
+            </option>
+        </select>
 
     </div>
 </template>
 
 <script>
+    import Multiselect from 'vue-multiselect';
+
+    import 'vue-multiselect/dist/vue-multiselect.min.css';
+
     export default {
         props: {
-            canCreatedNew : {
-                type: Boolean,
-                default: false,
+            source: {
+                type: String,
+                require: true
             },
-            route: {
-                type: String
+            name: {
+                type: String,
+                require: true
             },
-            getOnce: {
-                type: Boolean,
-                default: true,
+            values: {
+                type: Array,
+                default: () => [],
             }
         },
-        data() {
-            return {
-                inputSelect: "",
-                selectedItems: [],
-                existsItems: [
-                    { title: "hello" },
-                    { title: "help" },
-                    { title: "world" },
-                    { title: "hehehe" }
-                ],
-                findedItems: [],
-                currentSelected: null,
-                backspaceCount: 0
-            };
+        components: {
+            Multiselect
         },
-        computed: {
-            showAutocomplate() {
-                return this.findedItems.length;
+        data () {
+            return {
+                selectedItems: this.values,
+                items: [],
+                isLoading: false
             }
         },
         methods: {
-            selectItem() {
-
-                if (this.currentSelected) {
-                    this.selectedItems.push(this.currentSelected);
-                    this.findedItems = [];
-                    this.currentSelected = null;
-                    this.inputSelect = "";
-                    this.backspaceCount = 1;
-                    return;
-                }
-
-                if (this.canCreatedNew) {
-                    let item = {
-                        title: this.inputSelect
-                    };
-                    this.selectedItems.push(item);
-                    this.inputSelect = "";
-                    this.backspaceCount = 1;
-                }
+            limitText (count) {
+                return `and ${count} other countries`
             },
-            keyUp() {
-                if (! this.inputSelect) {
-                    this.findedItems = [];
-                    return;
-                }
+            async asyncFind (query) {
+                if (! query) { return; }
 
-                let regExp = new RegExp(this.inputSelect, "i");
-                this.findedItems = this.existsItems.filter((item) => {
-                    return item.title.search(regExp) >= 0
-                        && this.selectedItems.indexOf(item) === -1;
-                });
-
-                if (this.findedItems.length > 0) {
-                    let index = this.findedItems.indexOf(this.currentSelected);
-                    if (index === -1) {
-                        this.currentSelected = this.findedItems[0];
-                    }
-                } else {
-                    this.currentSelected = null;
-                }
-
-
-                this.backspaceCount = 0;
+                this.isLoading = true;
+                let {data} = await window.axios.get(`${this.source}?q=${query}`);
+                this.items = data.data;
+                this.isLoading = false;
             },
-            keyDown(event) {
-                if (event.code === "Enter") { this.selectItem(); }
-                if (event.code === "ArrowDown") { this.arrowDown(); }
-                if (event.code === "ArrowUp" ) { this.arrowUp(); }
-            },
-            arrowUp() {
-                if (this.findedItems.length === 0) {
-                    return;
-                }
-
-                let index = this.findedItems.indexOf(this.currentSelected);
-                if (index > 0) {
-                    this.currentSelected = this.findedItems[index - 1];
-                }
-            },
-            arrowDown() {
-                if (this.findedItems.length === 0) {
-                    return;
-                }
-
-                let index = this.findedItems.indexOf(this.currentSelected);
-                console.log(index);
-                console.log(this.findedItems.length);
-                if (index + 1 < this.findedItems.length) {
-                    console.log(this.currentSelected);
-                    this.currentSelected = this.findedItems[index + 1];
-                    console.log(this.currentSelected);
-                }
-            },
-            deleteLastItem() {
-                if (this.inputSelect === "") {
-                    ++ this.backspaceCount;
-                }
-
-                if (this.backspaceCount >= 2) {
-                    if (this.selectedItems.length) {
-                        this.selectedItems.pop();
-                    }
-                    this.backspaceCount = 1;
-                }
-            },
-            closeItem(item) {
-                let index = this.selectedItems.indexOf(item);
-                this.selectedItems.splice(index, 1);
-            },
-            overItem(item) {
-                this.currentSelected = item;
-            },
-            clickItem(item) {
-                this.overItem(item);
-                this.selectItem();
+            clearAll () {
+                this.selectedItems = [];
             }
-        },
+        }
     }
 </script>
 
 <style>
-    .multi-select {
-        display: flex;
-        flex-wrap: wrap;
-        border: 1px solid #b4bcc8;
-        padding: 10px 5px 5px 10px;
-        border-radius: 8px;
-        font-size: 1rem;
+    .multiselect__tags, .multiselect__content-wrapper {
+        border: 1px solid #999;
     }
-
-    .multi-select .item {
-        background-color: #2b3643;
-        color: #b4bcc8;
-        padding: 8px 10px;
-        margin: 0 5px 5px 0;
-        border-radius: 8px;
+    .multiselect__content-wrapper {
+        border-top: 0;
     }
-    .multi-select .item__close {
-        cursor: pointer;
-        display: inline-block;
-        margin-left: 5px
+    .multiselect__tag,
+    .multiselect__option--highlight,
+    .multiselect__option--highlight:after
+    {
+        background: #303a47;
     }
-    .multi-select .item__close:hover {
+    .multiselect__spinner:before {
+        border-color: #303a47;
+    }
+    .multiselect__spinner:after {
+        border-color: #b4bcc8;
+    }
+    .multiselect__tag-icon:after {
         color: #fff;
     }
-
-    .multi-select input {
-        width: 100%;
-        flex: 1;
-        min-width: 10px;
-        max-width: 100%;
-        margin: 0 5px 5px 0;
-        padding: 8px 0;
-        border: 0;
-        font-size: 1rem;
-    }
-    .multi-select input:focus {
-        outline: none;
-    }
-
-    .multi-autocomplete-wrapper {
-        position: relative;
-    }
-
-    .multi-autocomplete {
-        position: absolute;
-        background-color: #fff;
-        border: 1px solid #b4bcc8;
-        border-radius: 8px;
-        left: 0;
-        right: 0;
-        padding: 10px;
-        top: 0;
-        margin-top: 2px;
-        z-index: 10;
-    }
-
-    .multi-autocomplete .item {
-        padding: 10px;
-        border-radius: 4px;
-    }
-    .item-selected {
-        background-color: #2b3643;
-        color: #fff;
+    .multiselect__tag-icon:hover {
+        background-color: #b4bcc8;
+        color: #303a47;
     }
 </style>

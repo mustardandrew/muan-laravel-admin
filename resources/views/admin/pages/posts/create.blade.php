@@ -89,9 +89,19 @@
 
                 <div class="form__group">
                     <div class="control">
-                        <label class="control__label" for="category_id">Tags</label>
+                        <label class="control__label" for="tags">Tags</label>
 
-                        <multi-select class="vue-wrapper"></multi-select>
+                        <multi-select class="vue-wrapper"
+                                      name="tags[]"
+                                      source="{{ route('admin.api.tags.multiselect') }}">
+
+                        </multi-select>
+
+                        @if ($errors->has('tags'))
+                            <span class="control__help control__help--error">
+                                {{ $errors->first('tags') }}
+                            </span>
+                        @endif
                     </div>
                 </div>
 

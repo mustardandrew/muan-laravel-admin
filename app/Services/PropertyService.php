@@ -2,6 +2,7 @@
 
 namespace Muan\Admin\Services;
 
+use Illuminate\Database\Eloquent\Collection;
 use Muan\Admin\Models\{Property, Group};
 
 /**
@@ -11,26 +12,57 @@ use Muan\Admin\Models\{Property, Group};
  */
 class PropertyService
 {
+    /**
+     * @var Collection|Group[]
+     */
+    static $groups;
 
     /**
-     * Properties
-     *
-     * @var array
+     * @return Collection|Group[]
      */
-    static protected $properties = [];
-
-    /**
-     * Get types
-     *
-     * @return array
-     */
-    public function getTypes()
+    private function getGroups()
     {
-        return [
-            'string'  => 'String',
-            'integer' => 'Integer',
-            'text'    => 'Text',
-        ];
+        if (self::$groups === null) {
+            self::$groups = Group::with('properties')->get();
+        }
+
+        return self::$groups;
+    }
+
+    /**
+     * Get Property
+     *
+     * @param string $key
+     * @return Property|null
+     */
+    private function getProperty(string $key)
+    {
+        if (! preg_match('~\.~', $key)) {
+            return null;
+        }
+
+        list($groupKey, $propertyKey) = explode('.', $key, 2);
+
+        if (! $group = $this->getGroup($groupKey)) {
+            return null;
+        }
+
+        return $group->properties->filter(function (Property $property) use (&$propertyKey) {
+            return $property->slug == $propertyKey;
+        })->first();
+    }
+
+    /**
+     * Get Group
+     *
+     * @param string $key
+     * @return Group|null
+     */
+    private function getGroup(string $key)
+    {
+        return $this->getGroups()->filter(function (Group $group) use (&$key) {
+            return $group->slug == $key;
+        })->first();
     }
 
     /**
@@ -42,19 +74,15 @@ class PropertyService
      */
     public function get(string $key, $default = null)
     {
-        if (! isset(self::$properties[$key])) {
-            self::$properties[$key] = $this->getProperty($key);
+        if (! $property = $this->getProperty($key)) {
+            return $default;
         }
 
-        if (isset(self::$properties[$key]) && self::$properties[$key] instanceof Property) {
-            return self::$properties[$key]->value;
-        }
-
-        return self::$properties[$key] ? self::$properties[$key] : $default;
+        return $property->value;
     }
 
     /**
-     * Get grop properties
+     * Get group properties
      *
      * @param string $key
      * @return array
@@ -68,34 +96,6 @@ class PropertyService
         return $group->properties->mapWithKeys(function(Property $property) {
             return [$property->slug => $property->value];
         })->toArray();
-    }
-
-    /**
-     * Get Property
-     *
-     * @param string $key
-     * @return Property|null
-     */
-    public function getProperty(string $key)
-    {
-        if (! empty(self::$properties[$key])) {
-            return self::$properties[$key];
-        }
-
-        self::$properties[$key] = Property::slug($key)->first();
-
-        return self::$properties[$key];
-    }
-
-    /**
-     * Get Group
-     *
-     * @param string $key
-     * @return Group|null
-     */
-    public function getGroup(string $key)
-    {
-        return Group::slug($key)->first();
     }
 
 }

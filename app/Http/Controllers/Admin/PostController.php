@@ -8,6 +8,7 @@ use Muan\Admin\Http\Controllers\Controller;
 use Muan\Admin\Http\Requests\{
     CreatePostRequest, UpdatePostRequest
 };
+use Muan\Admin\Models\Post;
 use Muan\Admin\Services\UploadService;
 
 /**
@@ -202,6 +203,7 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request, UploadService $uploadService)
     {
+        /** @var Post $post */
         $post = $this->resolveEntity()->create($request->all());
 
         // Upload image
@@ -209,6 +211,8 @@ class PostController extends Controller
             $post->image = $uploadService->upload($request->file('image'), 'posts', config('admin.resize.post'));
             $post->save();
         }
+
+        $post->tags()->sync($request->input('tags', []));
 
         FlashMessage::notice("Post with name '{$post->title}' created successfully!");
         return redirect()->route('admin.posts');
@@ -239,6 +243,8 @@ class PostController extends Controller
     {
         $post = $this->resolveEntity()->findOrFail($id);
         $post->update($request->all());
+
+        $post->tags()->sync($request->input('tags', []));
 
         // Upload image
         if ($request->hasFile('image')) {
@@ -276,6 +282,7 @@ class PostController extends Controller
     public function destroy(UploadService $uploadService, $id)
     {
         $post = $this->resolveEntity()->findOrFail($id);
+        $post->tags()->sync([]);
         $post->delete();
 
         $post->image && $uploadService->remove($post->image);

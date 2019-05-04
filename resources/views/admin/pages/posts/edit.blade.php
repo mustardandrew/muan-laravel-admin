@@ -90,6 +90,25 @@
                     </div>
                 </div>
 
+                <div class="form__group">
+                    <div class="control">
+                        <label class="control__label" for="tags">Tags</label>
+
+                        <multi-select class="vue-wrapper"
+                                      name="tags[]"
+                                      :values="{{ json_encode(\Muan\Admin\Http\Resources\TagResource::collection($post->tags)->jsonSerialize()) }}"
+                                      source="{{ route('admin.api.tags.multiselect') }}">
+
+                        </multi-select>
+
+                        @if ($errors->has('tags'))
+                            <span class="control__help control__help--error">
+                                {{ $errors->first('tags') }}
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class=form__group>
                     <div class="control">
                         <label class="control__label" for="description">Description</label>
