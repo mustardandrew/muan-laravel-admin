@@ -20,7 +20,8 @@
                      :max-height="600"
                      :show-no-results="false"
                      :hide-selected="true"
-                     @search-change="asyncFind">
+                     @search-change="asyncFind"
+        >
 
             <template slot="tag" slot-scope="{ option, remove }">
                 <span class="multiselect__tag">

@@ -8,8 +8,10 @@ Maun Laravel Admin package is a PHP package for Laravel Framework. Used for mani
 
 ## Requirements
 
-- "php": ">=7.1",
+- "php": ">=7.1"
 - "muan/laravel-acl": "^1.1"
+- "muan/laravel-comments": "^0.1.0"
+- "muan/laravel-tags": "^0.1.0"
 - "intervention/image": "^2.4"
 
 ## Install
