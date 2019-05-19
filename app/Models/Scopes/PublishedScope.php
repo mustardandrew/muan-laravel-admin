@@ -24,9 +24,9 @@ trait PublishedScope
      */
     public function scopePublished(Builder $builder) : Builder
     {
-        return $builder->where('active', true)->where(function(Builder $query) {
-            $query->whereNull('posted_at');
-            $query->orWhere('posted_at', '<=', new Carbon('now'));
+        return $builder->where('is_active', true)->where(function(Builder $query) {
+            $query->whereNull('published_at');
+            $query->orWhere('published_at', '<=', new Carbon('now'));
         });
     }
 
@@ -38,8 +38,8 @@ trait PublishedScope
      */
     public function scopeNotPublished(Builder $builder) : Builder
     {
-        return $builder->where('active', false)
-            ->orWhere('posted_at', '>=', new Carbon('now'));
+        return $builder->where('is_active', false)
+            ->orWhere('published_at', '>=', new Carbon('now'));
     }
 
 }
